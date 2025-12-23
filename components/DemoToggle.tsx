@@ -81,115 +81,212 @@ export default function DemoToggle() {
                 ) : (
                     <div style={{
                         width: '100%',
-                        maxWidth: '600px',
+                        maxWidth: '700px',
                         textAlign: 'left',
                         padding: '3rem',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '2rem',
-                        animation: 'fadeIn 0.3s ease',
                         background: '#fff',
-                        borderRadius: '24px',
-                        boxShadow: '0 20px 40px -5px rgba(0,0,0,0.1)',
-                        border: '1px solid rgba(0,0,0,0.05)'
+                        borderRadius: '32px',
+                        boxShadow: '0 20px 60px -10px rgba(0,0,0,0.1)',
+                        border: '1px solid rgba(0,0,0,0.05)',
+                        position: 'relative'
                     }}>
                         {/* Header */}
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '1.5rem', borderBottom: '1px solid #f0f0f0' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '3rem' }}>
+                            <h3 style={{ fontSize: '2rem', fontWeight: 700, color: '#111', margin: 0 }}>Daily Digest</h3>
+                            <div style={{
+                                padding: '0.5rem 1rem',
+                                background: '#F3F4F6',
+                                borderRadius: '12px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                color: '#374151',
+                                fontWeight: 600,
+                                fontSize: '0.9rem'
+                            }}>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                1 Jul - 8 Jul
+                            </div>
+                        </div>
+
+                        {/* Main Content Grid */}
+                        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '2rem' }}>
+                            {/* Left: Bubble Chart */}
+                            <div style={{ position: 'relative', height: '300px' }}>
+                                {/* Yellow Bubble (Completed) */}
                                 <div style={{
-                                    width: 56,
-                                    height: 56,
-                                    borderRadius: '16px',
-                                    background: '#10B981',
+                                    position: 'absolute',
+                                    top: '0',
+                                    left: '50%',
+                                    transform: 'translateX(-50%)',
+                                    width: '180px',
+                                    height: '180px',
+                                    borderRadius: '50%',
+                                    background: '#FCD34D',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
-                                    color: 'white',
-                                    boxShadow: '0 8px 16px -4px rgba(16, 185, 129, 0.3)'
+                                    zIndex: 2,
+                                    boxShadow: '0 10px 30px rgba(252, 211, 77, 0.4)'
                                 }}>
-                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
+                                    <span style={{ fontSize: '2.5rem', fontWeight: 600, color: '#111' }}>177</span>
+                                    {/* Tag */}
+                                    <div style={{
+                                        position: 'absolute',
+                                        top: '-15px',
+                                        left: '-20px',
+                                        background: '#fff',
+                                        padding: '0.4rem 0.8rem',
+                                        borderRadius: '8px',
+                                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '6px',
+                                        fontSize: '0.8rem',
+                                        fontWeight: 600,
+                                        color: '#374151',
+                                        whiteSpace: 'nowrap'
+                                    }}>
+                                        <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#FCD34D' }}></div>
+                                        Completed
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#111', lineHeight: 1.1, marginBottom: '0.2rem' }}>Daily Digest</h3>
-                                    <span style={{ fontSize: '0.95rem', color: '#666', fontWeight: 500 }}>Prepared just now for you</span>
+
+                                {/* Red Bubble (Ongoing) */}
+                                <div style={{
+                                    position: 'absolute',
+                                    bottom: '20px',
+                                    left: '10px',
+                                    width: '130px',
+                                    height: '130px',
+                                    borderRadius: '50%',
+                                    background: '#EF4444',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    zIndex: 1,
+                                    boxShadow: '0 10px 30px rgba(239, 68, 68, 0.4)'
+                                }}>
+                                    <span style={{ fontSize: '2rem', fontWeight: 600, color: '#fff' }}>87</span>
+                                    {/* Tag */}
+                                    <div style={{
+                                        position: 'absolute',
+                                        top: '0',
+                                        left: '-30px',
+                                        background: '#fff',
+                                        padding: '0.4rem 0.8rem',
+                                        borderRadius: '8px',
+                                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '6px',
+                                        fontSize: '0.8rem',
+                                        fontWeight: 600,
+                                        color: '#374151',
+                                        whiteSpace: 'nowrap'
+                                    }}>
+                                        <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#EF4444' }}></div>
+                                        Ongoing
+                                    </div>
+                                </div>
+
+                                {/* Purple Bubble (Awaiting) */}
+                                <div style={{
+                                    position: 'absolute',
+                                    bottom: '0',
+                                    right: '40px',
+                                    width: '90px',
+                                    height: '90px',
+                                    borderRadius: '50%',
+                                    background: '#8B5CF6',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    zIndex: 3,
+                                    boxShadow: '0 10px 30px rgba(139, 92, 246, 0.4)'
+                                }}>
+                                    <span style={{ fontSize: '1.25rem', fontWeight: 600, color: '#fff' }}>23</span>
+                                    {/* Tag */}
+                                    <div style={{
+                                        position: 'absolute',
+                                        bottom: '-10px',
+                                        right: '-20px',
+                                        background: '#fff',
+                                        padding: '0.4rem 0.8rem',
+                                        borderRadius: '8px',
+                                        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '6px',
+                                        fontSize: '0.8rem',
+                                        fontWeight: 600,
+                                        color: '#374151',
+                                        whiteSpace: 'nowrap'
+                                    }}>
+                                        <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#8B5CF6' }}></div>
+                                        Awaiting
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Right: Stats List */}
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                {/* Stat 1 */}
+                                <div style={{ padding: '1rem', background: '#F9FAFB', borderRadius: '16px' }}>
+                                    <div style={{ fontSize: '0.85rem', color: '#6B7280', marginBottom: '0.25rem' }}>Completed</div>
+                                    <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#111', marginBottom: '0.5rem' }}>177 (67%)</div>
+                                    <div style={{ height: '4px', width: '100%', background: '#E5E7EB', borderRadius: '2px' }}>
+                                        <div style={{ height: '100%', width: '67%', background: '#FCD34D', borderRadius: '2px' }}></div>
+                                    </div>
+                                </div>
+                                {/* Stat 2 */}
+                                <div style={{ padding: '1rem', background: '#F9FAFB', borderRadius: '16px' }}>
+                                    <div style={{ fontSize: '0.85rem', color: '#6B7280', marginBottom: '0.25rem' }}>Ongoing</div>
+                                    <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#111', marginBottom: '0.5rem' }}>87 (21%)</div>
+                                    <div style={{ height: '4px', width: '100%', background: '#E5E7EB', borderRadius: '2px' }}>
+                                        <div style={{ height: '100%', width: '21%', background: '#EF4444', borderRadius: '2px' }}></div>
+                                    </div>
+                                </div>
+                                {/* Stat 3 */}
+                                <div style={{ padding: '1rem', background: '#F9FAFB', borderRadius: '16px' }}>
+                                    <div style={{ fontSize: '0.85rem', color: '#6B7280', marginBottom: '0.25rem' }}>Awaiting</div>
+                                    <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#111', marginBottom: '0.5rem' }}>23 (12%)</div>
+                                    <div style={{ height: '4px', width: '100%', background: '#E5E7EB', borderRadius: '2px' }}>
+                                        <div style={{ height: '100%', width: '12%', background: '#8B5CF6', borderRadius: '2px' }}></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Content */}
-                        <div>
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
-                                <p style={{ fontWeight: 700, fontSize: '0.85rem', textTransform: 'uppercase', color: '#999', letterSpacing: '0.05em' }}>Key Highlights</p>
-                                <span style={{ fontSize: '0.85rem', color: '#3B82F6', fontWeight: 600, cursor: 'pointer' }}>View All Activity</span>
+                        {/* Bottom Toast */}
+                        <div style={{
+                            marginTop: '2rem',
+                            padding: '0.75rem',
+                            background: '#F9FAFB',
+                            borderRadius: '12px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '1rem'
+                        }}>
+                            <div style={{ width: 40, height: 40, borderRadius: '8px', overflow: 'hidden', background: '#ddd' }}>
+                                <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=Felix`} alt="User" style={{ width: '100%', height: '100%' }} />
                             </div>
-
-                            {/* Item 1: Alert */}
-                            <div style={{
-                                padding: '1.5rem',
-                                background: '#FEF2F2',
-                                borderRadius: '16px',
-                                marginBottom: '1rem',
-                                border: '1px solid #FEE2E2',
-                                transition: 'transform 0.2s',
-                                cursor: 'pointer'
-                            }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem', color: '#EF4444', fontWeight: 700, fontSize: '0.9rem' }}>
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <line x1="12" y1="8" x2="12" y2="12"></line>
-                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                                    </svg>
-                                    Action Required
-                                </div>
-                                <p style={{ lineHeight: 1.5, fontSize: '1.05rem', color: '#444' }}>
-                                    <span style={{ fontWeight: 700, color: '#111' }}>CI/CD Blockage:</span> Tests in <span style={{ fontWeight: 600, background: '#fff', padding: '2px 6px', borderRadius: 4, border: '1px solid #facaca' }}>payment-service</span> are failing integration checks.
-                                </p>
+                            <div style={{ fontSize: '0.9rem', color: '#374151' }}>
+                                <span style={{ fontWeight: 700, fontSize: '1.1rem', marginRight: '0.5rem' }}>+14</span>
+                                users signed in less than a minute!
                             </div>
-
-                            {/* Item 2: Summary */}
-                            <div style={{
-                                padding: '1.5rem',
-                                background: '#F0F9FF',
-                                borderRadius: '16px',
-                                border: '1px solid #E0F2FE'
-                            }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem', color: '#0284C7', fontWeight: 700, fontSize: '0.9rem' }}>
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
-                                    </svg>
-                                    Activity Velocity
-                                </div>
-                                <p style={{ lineHeight: 1.5, fontSize: '1.05rem', color: '#444' }}>
-                                    <span style={{ fontWeight: 700, color: '#111' }}>12 PRs Merged.</span> High velocity in <span style={{ fontWeight: 600, color: '#0284C7' }}>auth-service</span> (Frontend Team).
-                                </p>
-                            </div>
-                        </div>
-
-                        <div style={{ marginTop: '0.5rem' }}>
-                            <button style={{
-                                width: '100%',
-                                background: '#111',
-                                color: '#fff',
-                                border: 'none',
-                                padding: '1.25rem',
-                                borderRadius: '16px',
-                                fontSize: '1rem',
-                                fontWeight: 700,
-                                cursor: 'pointer',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                gap: '0.5rem',
-                                transition: 'opacity 0.2s'
-                            }}>
-                                View Full Report
+                            <div style={{ marginLeft: 'auto', cursor: 'pointer', color: '#9CA3AF' }}>
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                                    <line x1="9" y1="9" x2="15" y2="15"></line>
                                 </svg>
-                            </button>
+                            </div>
                         </div>
                     </div>
                 )}

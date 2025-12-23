@@ -5,67 +5,90 @@ export default function Navbar() {
     return (
         <nav style={{
             position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            zIndex: 100,
-            background: 'rgba(255,255,255,0.9)',
-            backdropFilter: 'blur(10px)',
-            borderBottom: '1px solid #f0f0f0'
+            top: '20px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '95%',
+            maxWidth: '1200px',
+            zIndex: 100
         }}>
-            <div className="container" style={{
+            <div style={{
+                background: '#fff',
+                borderRadius: '50px',
+                padding: '0.75rem 1.5rem',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                height: '80px'
+                border: '1px solid #f3f3f3'
             }}>
                 {/* Logo */}
-                <Link href="/" style={{ fontWeight: 800, fontSize: '1.4rem', letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#000' }}>
-                    <div style={{ width: 10, height: 10, background: '#000', borderRadius: '50%' }}></div>
-                    <div style={{ width: 10, height: 10, background: '#000', borderRadius: '50%', opacity: 0.5 }}></div>
+                <Link href="/" style={{
+                    fontWeight: 800,
+                    fontSize: '1.25rem',
+                    letterSpacing: '-0.02em',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    color: '#000',
+                    textDecoration: 'none'
+                }}>
+                    <div style={{ display: 'flex', gap: '2px' }}>
+                        <div style={{ width: 6, height: 6, background: '#000', borderRadius: '50%' }}></div>
+                        <div style={{ width: 6, height: 6, background: '#000', borderRadius: '50%', opacity: 0.5 }}></div>
+                        <div style={{ width: 6, height: 6, background: '#000', borderRadius: '50%', opacity: 0.25 }}></div>
+                    </div>
                     GitCalm
                 </Link>
 
-                {/* Navigation */}
-                <div style={{ display: 'none', gap: '2rem', alignItems: 'center', fontSize: '0.9rem', fontWeight: 500, color: '#444' }}>
-                    {/* Note: In a real responsive app, this would be hidden on mobile/shown on desktop via media query */}
-                    <Link href="#features">Why GitCalm</Link>
-                    <Link href="#product">Product</Link>
-                    <Link href="#solutions">Solutions</Link>
-                    <Link href="#resources">Resources</Link>
+                {/* Navigation Links - Centered */}
+                <div style={{
+                    display: 'flex',
+                    gap: '2rem',
+                    alignItems: 'center',
+                    fontSize: '0.9rem',
+                    fontWeight: 500,
+                    color: '#4b5563'
+                }}>
+                    <Link href="#how-it-works" style={{ color: '#111', fontWeight: 600 }}>How it works</Link>
+                    <Link href="#features">Features</Link>
+                    <Link href="#pricing">Pricing</Link>
+                    <Link href="#integrations">Integrations</Link>
+                    <Link href="#about">About</Link>
                 </div>
 
-                {/* CTA */}
-                <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-                    {/* Search Icon Placeholder */}
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5 }}>
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
+                {/* Right Actions */}
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                    {/* Search Icon */}
+                    <button style={{ background: 'transparent', border: 'none', cursor: 'pointer', padding: '0.5rem', opacity: 0.6 }}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
 
+                    {/* Flag Icon (UK/US style placeholder) */}
+                    <button style={{ background: 'transparent', border: 'none', cursor: 'pointer', padding: '0.5rem', fontSize: '1.2rem' }}>
+                        🇬🇧
+                    </button>
+
+                    {/* CTA Button */}
                     <Link href="/login" style={{
-                        background: '#000',
+                        background: '#111',
                         color: '#fff',
-                        padding: '0.6rem 1.4rem',
-                        borderRadius: '8px',
+                        padding: '0.75rem 1.75rem',
+                        borderRadius: '30px',
                         fontSize: '0.9rem',
                         fontWeight: 600,
-                        display: 'flex',
-                        alignItems: 'center',
-                        border: 'none',
-                        cursor: 'pointer'
+                        textDecoration: 'none',
+                        transition: 'transform 0.1s'
                     }}>
                         Try GitCalm
                     </Link>
                 </div>
             </div>
 
-            {/* Desktop view hack for menu items (since we are doing inline styles only for now) */}
-            <style jsx>{`
-        @media (min-width: 768px) {
-          nav div:nth-child(2) { display: flex !important; }
-        }
-      `}</style>
+            {/* Simple media query for desktop menu visibility - REMOVED for visibility */}
         </nav>
     );
 }

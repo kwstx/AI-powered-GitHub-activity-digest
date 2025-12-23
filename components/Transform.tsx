@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 
 export default function Transform() {
     return (
@@ -12,8 +13,8 @@ export default function Transform() {
                     lineHeight: 1.1,
                     color: 'hsl(var(--foreground))'
                 }}>
-                    Transform Your <br />
-                    Activity into <span style={{ opacity: 0.5 }}>Insights</span>
+                    Turn GitHub Noise <br />
+                    Into <span style={{ opacity: 0.5 }}>Daily Insights</span>
                 </h2>
                 <p style={{
                     fontSize: '1.1rem',
@@ -22,7 +23,7 @@ export default function Transform() {
                     maxWidth: '600px',
                     margin: '0 auto'
                 }}>
-                    Explore how our innovative strategies and tools can seamlessly convert your chaotic logs into tangible shipping streams, driving sustainable growth for your engineering team.
+                    Stop digging through endless notifications and commit logs. Get a consolidated engineering digest that highlights what actually matters for your daily standup.
                 </p>
             </div>
 
@@ -78,7 +79,10 @@ export default function Transform() {
                             justifyContent: 'center'
                         }}>
                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth="2">
-                                <path d="M3 17l6-6 4 4 8-8" strokeLinecap="round" strokeLinejoin="round" />
+                                <circle cx="18" cy="18" r="3"></circle>
+                                <circle cx="6" cy="6" r="3"></circle>
+                                <path d="M13 6h3a2 2 0 0 1 2 2v7"></path>
+                                <line x1="6" y1="9" x2="6" y2="21"></line>
                             </svg>
                         </div>
 
@@ -103,7 +107,7 @@ export default function Transform() {
                     </div>
 
                     <div>
-                        <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.5rem' }}>Supercharge Your Velocity</h3>
+                        <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.5rem' }}>Accelerate Review Cycles</h3>
                         <p style={{ fontSize: '0.95rem', opacity: 0.6, lineHeight: 1.5 }}>
                             Optimize your review cycles and reduce drag.
                         </p>
@@ -119,7 +123,7 @@ export default function Transform() {
                     minHeight: '400px'
                 }}>
                     <div style={{ marginBottom: '2rem' }}>
-                        <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.5rem' }}>Activity Growth Visualization</h3>
+                        <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.5rem' }}>Codebase Evolution</h3>
                         <p style={{ fontSize: '0.95rem', opacity: 0.6, lineHeight: 1.5 }}>
                             Visualize code churn trends and patterns to make data-driven decisions for codebase expansion.
                         </p>
@@ -159,8 +163,10 @@ export default function Transform() {
                             boxShadow: '0 5px 15px rgba(0,0,0,0.2)'
                         }}>
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5">
-                                <path d="M22 12c0 5.5-4.5 9.5-10 9.5S2 17.5 2 12 6.5 2.5 12 2.5c2.5 0 5 1 7 2.5" />
-                                <path d="M22 5v5h-5" />
+                                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                                <path d="M3 3v5h5" />
+                                <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+                                <path d="M16 16h5v5" />
                             </svg>
                         </div>
                     </div>
@@ -178,7 +184,7 @@ export default function Transform() {
                     justifyContent: 'space-between'
                 }}>
                     <div style={{ marginBottom: '1rem' }}>
-                        <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.5rem' }}>Ship Accelerator</h3>
+                        <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.5rem' }}>Merge Workflow</h3>
                         <p style={{ fontSize: '0.95rem', opacity: 0.6, lineHeight: 1.5 }}>
                             From automated summaries to AI-powered prioritization, this feature streamlines the entire workflow.
                         </p>
@@ -193,7 +199,7 @@ export default function Transform() {
                             padding: '1.5rem',
                             boxShadow: '0 10px 20px rgba(0,0,0,0.05)'
                         }}>
-                            <div style={{ fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.5rem', opacity: 0.7 }}>Time to Ship</div>
+                            <div style={{ fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.5rem', opacity: 0.7 }}>Time to Merge</div>
                             <div style={{ background: '#111', color: '#fff', padding: '1rem', borderRadius: '12px', fontSize: '1.5rem', fontWeight: 700, textAlign: 'center' }}>
                                 2.4d
                             </div>
@@ -211,8 +217,8 @@ export default function Transform() {
                                 boxShadow: '0 5px 10px rgba(0,0,0,0.05)'
                             }}>
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#333" strokeWidth="2">
-                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                    <circle cx="12" cy="12" r="10" />
+                                    <polyline points="12 6 12 12 16 14" />
                                 </svg>
                             </div>
                             <div style={{
@@ -283,7 +289,7 @@ export default function Transform() {
                     justifyContent: 'space-between'
                 }}>
                     <div>
-                        <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.5rem' }}>Role Segmentation</h3>
+                        <h3 style={{ fontSize: '1.4rem', fontWeight: 700, marginBottom: '0.5rem' }}>Team Context</h3>
                         <p style={{ fontSize: '0.95rem', opacity: 0.6, lineHeight: 1.5 }}>
                             Effortlessly segment activity streams based on customizable roles for targeted visibility and enhanced focus.
                         </p>
@@ -298,12 +304,12 @@ export default function Transform() {
                                 <div style={{ height: '100%', width: '51%', background: '#EF4444', borderRadius: '4px' }}></div>
                             </div>
                             <div style={{ fontSize: '2rem', fontWeight: 700, lineHeight: 1 }}>51%</div>
-                            <div style={{ fontSize: '0.8rem', opacity: 0.5, marginTop: '0.2rem' }}>Noise Reduction</div>
+                            <div style={{ fontSize: '0.8rem', opacity: 0.5, marginTop: '0.2rem' }}>Notifications Silenced</div>
                         </div>
 
                         {/* Visual 2: New Leads/Count */}
                         <div style={{ background: '#fff', borderRadius: '20px', padding: '1.5rem', boxShadow: '0 10px 20px rgba(0,0,0,0.05)', position: 'relative', left: '20px', marginBottom: '-20px' }}>
-                            <div style={{ fontSize: '0.75rem', opacity: 0.5, marginBottom: '0.5rem' }}>New Insights</div>
+                            <div style={{ fontSize: '0.75rem', opacity: 0.5, marginBottom: '0.5rem' }}>Merged Pull Requests</div>
                             <div style={{ fontSize: '2.5rem', fontWeight: 700, lineHeight: 1, marginBottom: '0.5rem' }}>342</div>
 
                             {/* Tiny bars */}
@@ -321,7 +327,7 @@ export default function Transform() {
 
             {/* Button Below */}
             <div style={{ marginTop: '4rem' }}>
-                <button style={{
+                <Link href="/learn-more" style={{
                     background: '#111',
                     color: '#fff',
                     padding: '1rem 2.5rem',
@@ -329,10 +335,12 @@ export default function Transform() {
                     fontSize: '1rem',
                     fontWeight: 500,
                     border: 'none',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    textDecoration: 'none',
+                    display: 'inline-block'
                 }}>
                     Learn more
-                </button>
+                </Link>
             </div>
         </section>
     );
