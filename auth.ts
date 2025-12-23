@@ -9,8 +9,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         })
     ],
     callbacks: {
+        async jwt({ token, account }) {
+            // Persist the OAuth access token to the token right after signin
+            if (account) {
+                token.accessToken = account.access_token;
+                token.id = account.providerAccountId;
+            }
+            return token;
+        },
+        async session({ session, token }) {
+            // Send properties to the client
+            session.accessToken = token.accessToken as string;
+            if (session.user) {
+                session.user.id = token.id as string;
+            }
+            return session;
+        },
         async redirect({ url, baseUrl }) {
-            console.log("DEBUG: Using Client ID:", process.env.GITHUB_ID);
             return baseUrl + "/dashboard";
         }
     },
