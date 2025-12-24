@@ -1,19 +1,61 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import RepoSelector from '@/components/dashboard/RepoSelector';
 
 export default function Onboarding() {
     const router = useRouter();
     const [step, setStep] = useState(1);
-    const [role, setRole] = useState('ic'); // 'ic', 'lead', 'manager'
+    const [loading, setLoading] = useState(false);
 
-    const handleContinue = () => {
+    // State form
+    const [role, setRole] = useState('ic');
+    const [selectedRepos, setSelectedRepos] = useState<string[]>([]);
+
+    useEffect(() => {
+        // Load initial state
+        const loadProfile = async () => {
+            try {
+                const res = await fetch('/api/user/profile');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.role) setRole(data.role);
+                    if (data.selectedRepos) setSelectedRepos(data.selectedRepos);
+                }
+            } catch (e) {
+                console.error("Failed to load profile", e);
+            }
+        };
+        loadProfile();
+    }, []);
+
+    const toggleRepo = (id: string) => {
+        setSelectedRepos(prev =>
+            prev.includes(id)
+                ? prev.filter(r => r !== id)
+                : [...prev, id]
+        );
+    };
+
+    const handleContinue = async () => {
         if (step === 1) {
             setStep(2);
         } else {
-            // Save settings (mock) and go to dashboard
-            router.push('/dashboard');
+            // Save settings to Backend
+            setLoading(true);
+            try {
+                await fetch('/api/user/profile', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ role, selectedRepos })
+                });
+                router.push('/dashboard');
+            } catch (e) {
+                console.error("Failed to save onboarding", e);
+                alert("Failed to save settings. Please try again.");
+            } finally {
+                setLoading(false);
+            }
         }
     };
 
@@ -73,12 +115,13 @@ export default function Onboarding() {
                     <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '1rem', color: '#0f172a' }}>Connect Repositories</h1>
                     <p style={{ fontSize: '1.1rem', color: '#64748b', marginBottom: '1rem' }}>Select the repositories you want to track in your digest.</p>
 
-                    <RepoSelector />
+                    <RepoSelector selectedRepoIds={selectedRepos} onToggle={toggleRepo} />
                 </div>
             )}
 
             <button
                 onClick={handleContinue}
+                disabled={loading}
                 style={{
                     display: 'block',
                     width: '100%',
@@ -89,11 +132,12 @@ export default function Onboarding() {
                     borderRadius: '12px',
                     fontSize: '1rem',
                     fontWeight: 600,
-                    cursor: 'pointer',
-                    marginTop: '2rem'
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                    marginTop: '2rem',
+                    opacity: loading ? 0.7 : 1
                 }}
             >
-                {step === 1 ? 'Next: Connect Repositories' : 'Finish Setup'}
+                {loading ? 'Saving...' : (step === 1 ? 'Next: Connect Repositories' : 'Finish Setup')}
             </button>
         </div>
     );

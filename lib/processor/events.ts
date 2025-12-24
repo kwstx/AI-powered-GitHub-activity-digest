@@ -100,6 +100,7 @@ export function analyzePriority(events: ProcessedEvent[]): ProcessedEvent[] {
         // Boost priority for CI failures
         if (event.type === 'ci' && event.category === 'warning') {
             event.priority = 'high';
+            event.priorityReason = 'CI workflow failed on default branch';
         }
 
         // Boost priority for open PRs mentioning "urgent" or "hotfix"
@@ -108,6 +109,14 @@ export function analyzePriority(events: ProcessedEvent[]): ProcessedEvent[] {
                 event.title.toLowerCase().includes('hotfix'))) {
             event.priority = 'high';
             event.category = 'warning';
+            event.priorityReason = 'Title contains urgent keywords';
+        }
+
+        // Default reasons
+        if (!event.priorityReason) {
+            if (event.category === 'success') event.priorityReason = 'Successfully completed action';
+            if (event.category === 'warning') event.priorityReason = 'Requires user attention';
+            if (event.category === 'info') event.priorityReason = 'General update';
         }
 
         return event;

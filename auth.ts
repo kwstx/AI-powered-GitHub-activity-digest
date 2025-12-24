@@ -12,6 +12,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         async jwt({ token, account }) {
             // Persist the OAuth access token to the token right after signin
             if (account) {
+                console.log('[AUTH] JWT Callback: Account present, saving token');
                 token.accessToken = account.access_token;
                 token.id = account.providerAccountId;
             }
@@ -19,6 +20,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
         async session({ session, token }) {
             // Send properties to the client
+            console.log('[AUTH] Session Callback: Token present?', !!token.accessToken);
             session.accessToken = token.accessToken as string;
             if (session.user) {
                 session.user.id = token.id as string;

@@ -35,20 +35,20 @@ export function useGitHubEvents(repos: string[]): UseGitHubEventsResult {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to fetch events');
+                const errorData = await response.json().catch(() => ({}));
+                console.error('[useGitHubEvents] API Error:', response.status, response.statusText, errorData);
+                throw new Error(errorData.error || `Failed to fetch events: ${response.statusText}`);
             }
 
             const { data } = await response.json();
+            console.log('[useGitHubEvents] Processed events received:', data?.length || 0);
 
-            // Process the data using our event processor
-            const { processGitHubData, analyzePriority } = await import('@/lib/processor/events');
-            const processed = processGitHubData(data);
-            const analyzed = analyzePriority(processed);
-
-            setEvents(analyzed);
+            // Data is already processed and categorized by the server
+            setEvents(data || []);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'An error occurred');
-            console.error('Error fetching GitHub events:', err);
+            const message = err instanceof Error ? err.message : 'An error occurred';
+            setError(message);
+            console.error('[useGitHubEvents] Uncaught Error:', err);
         } finally {
             setLoading(false);
         }

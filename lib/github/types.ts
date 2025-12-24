@@ -59,4 +59,5 @@ export interface ProcessedEvent {
     url?: string;
     priority: 'high' | 'medium' | 'low';
     impact?: string;
+    priorityReason?: string;
 }

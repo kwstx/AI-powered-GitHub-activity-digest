@@ -2,10 +2,44 @@
 import { useState, useEffect } from 'react';
 import StoryCard from './StoryCard';
 import AnalyticsHero from './AnalyticsHero';
+import StoryModal from './StoryModal';
 import { useGitHubEvents } from '@/lib/hooks/useGitHub';
 import { ProcessedEvent } from '@/lib/github/types';
 
 type StoryType = 'success' | 'warning' | 'info';
+
+// Mock Intelligent Summaries (Fallback)
+const MOCK_STORIES = [
+    {
+        id: 'mock-1',
+        category: 'success' as const,
+        repo: 'backend-api',
+        timestamp: new Date(Date.now() - 7200000).toISOString(),
+        title: 'Authentication Refactor Shipped Safely',
+        summary: 'Merged 3 PRs migrating legacy auth flow. Tests passed with 100% coverage.',
+        impact: 'Tech Debt Reduced',
+        priorityReason: 'Successfully completed action'
+    },
+    {
+        id: 'mock-2',
+        category: 'warning' as const,
+        repo: 'frontend-web',
+        timestamp: new Date(Date.now() - 2700000).toISOString(),
+        title: 'CI Build Failing on Main',
+        summary: 'Latest merge introduced a linting error blocking deployment pipeline.',
+        impact: 'Blocking Deploy',
+        priorityReason: 'CI workflow failed on default branch'
+    },
+    {
+        id: 'mock-3',
+        category: 'info' as const,
+        repo: 'design-system',
+        timestamp: new Date(Date.now() - 14400000).toISOString(),
+        title: 'New "Glass" Tokens Available',
+        summary: 'Updated global shadow tokens. 5 components auto-updated.',
+        priorityReason: 'General update'
+    },
+] as any[];
 
 // Mock repos for now - in production, this would come from user preferences
 const SELECTED_REPOS = [
@@ -15,9 +49,26 @@ const SELECTED_REPOS = [
 
 export default function DailyDigest() {
     const [selectedCategory, setSelectedCategory] = useState<StoryType | null>(null);
-    const { events, loading, error, refetch } = useGitHubEvents(SELECTED_REPOS);
+    const [selectedStory, setSelectedStory] = useState<ProcessedEvent | null>(null);
+    const { events: apiEvents, loading, error, refetch } = useGitHubEvents(SELECTED_REPOS);
+    const [useDemoData, setUseDemoData] = useState(false);
 
-    // Calculate category counts
+    // Date Filtering State (Default: Last 7 days)
+    const [dateRange, setDateRange] = useState({
+        start: new Date(new Date().setDate(new Date().getDate() - 7)),
+        end: new Date()
+    });
+
+    // Fallback to mock data if API fails or demo mode is active
+    const rawEvents = (error || useDemoData) && apiEvents.length === 0 ? MOCK_STORIES : apiEvents;
+
+    // Filter events by date
+    const events = rawEvents.filter(e => {
+        const eventDate = new Date(e.timestamp);
+        return eventDate >= dateRange.start && eventDate <= dateRange.end;
+    });
+
+    // Calculate category counts based on filtered events
     const categoryCounts = {
         success: events.filter(e => e.category === 'success').length,
         warning: events.filter(e => e.category === 'warning').length,
@@ -61,33 +112,73 @@ export default function DailyDigest() {
                 onSelectCategory={setSelectedCategory}
                 counts={categoryCounts}
                 loading={loading}
+                dateRange={dateRange}
+                onDateChange={(start, end) => setDateRange({ start, end })}
             />
 
             {/* Error State */}
-            {error && (
+            {/* Error State */}
+            {error && !useDemoData && (
                 <div style={{
                     background: '#FEE2E2',
                     border: '1px solid #EF4444',
                     borderRadius: '12px',
                     padding: '1rem',
                     marginBottom: '2rem',
-                    color: '#DC2626'
+                    color: '#DC2626',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
                 }}>
-                    <strong>Error:</strong> {error}
-                    <button
-                        onClick={refetch}
-                        style={{
-                            marginLeft: '1rem',
-                            background: '#EF4444',
-                            color: '#fff',
-                            border: 'none',
-                            padding: '0.5rem 1rem',
-                            borderRadius: '8px',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        Retry
-                    </button>
+                    <div>
+                        <strong>Unable to fetch real data.</strong> <br />
+                        <span style={{ fontSize: '0.9rem' }}>{error}</span>
+                    </div>
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <button
+                            onClick={refetch}
+                            style={{
+                                background: 'transparent',
+                                border: '1px solid #DC2626',
+                                color: '#DC2626',
+                                padding: '0.5rem 1rem',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                fontWeight: 600
+                            }}
+                        >
+                            Retry
+                        </button>
+                        <button
+                            onClick={() => setUseDemoData(true)}
+                            style={{
+                                background: '#DC2626',
+                                color: '#fff',
+                                border: 'none',
+                                padding: '0.5rem 1rem',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                fontWeight: 600
+                            }}
+                        >
+                            Show Demo Data
+                        </button>
+                    </div>
+                </div>
+            )}
+
+            {useDemoData && (
+                <div style={{
+                    background: '#FFF7ED',
+                    border: '1px solid #FDBA74',
+                    borderRadius: '12px',
+                    padding: '0.75rem 1rem',
+                    marginBottom: '2rem',
+                    color: '#C2410C',
+                    fontSize: '0.9rem',
+                    textAlign: 'center'
+                }}>
+                    <strong>Demo Mode Active:</strong> Showing sample data because live connection failed.
                 </div>
             )}
 
@@ -106,12 +197,49 @@ export default function DailyDigest() {
                         <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0f172a' }}>
                             {selectedCategory === 'success' ? 'Outcomes' : selectedCategory === 'warning' ? 'Needs Attention' : 'Updates'}
                         </h2>
-                        <button
-                            onClick={refetch}
-                            style={{ background: '#f8fafc', border: '1px solid #e2e8f0', padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 600, color: '#64748b', cursor: 'pointer' }}
-                        >
-                            🔄 Refresh
-                        </button>
+                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <button
+                                onClick={async () => {
+                                    if (!filteredEvents.length) return;
+
+                                    const header = `# GitCalm Summary - ${new Date().toLocaleDateString()}\n\n`;
+                                    const categoryHeader = `## ${selectedCategory === 'success' ? 'Outcomes' : selectedCategory === 'warning' ? 'Needs Attention' : 'Updates'}\n\n`;
+
+                                    const content = filteredEvents.map(e =>
+                                        `- **${e.repo}**: ${e.title} ${e.impact ? `[${e.impact}]` : ''}\n  ${e.summary}\n  Link: ${e.url}`
+                                    ).join('\n\n');
+
+                                    try {
+                                        await navigator.clipboard.writeText(header + categoryHeader + content);
+                                        alert('Summary copied to clipboard!');
+                                    } catch (err) {
+                                        console.error('Failed to copy', err);
+                                    }
+                                }}
+                                style={{
+                                    background: '#f8fafc',
+                                    border: '1px solid #e2e8f0',
+                                    padding: '0.5rem 1rem',
+                                    borderRadius: '20px',
+                                    fontSize: '0.85rem',
+                                    fontWeight: 600,
+                                    color: '#64748b',
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem'
+                                }}
+                            >
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                                Export
+                            </button>
+                            <button
+                                onClick={refetch}
+                                style={{ background: '#f8fafc', border: '1px solid #e2e8f0', padding: '0.5rem 1rem', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 600, color: '#64748b', cursor: 'pointer' }}
+                            >
+                                🔄 Refresh
+                            </button>
+                        </div>
                     </div>
 
                     {filteredEvents.length > 0 ? (
@@ -125,6 +253,8 @@ export default function DailyDigest() {
                                     timestamp={formatTimestamp(event.timestamp)}
                                     repo={event.repo}
                                     impact={event.impact}
+                                    priorityReason={event.priorityReason}
+                                    onClick={() => setSelectedStory(event)}
                                 />
                             ))}
 
@@ -145,6 +275,13 @@ export default function DailyDigest() {
                     Click on a chart section above to visualize the details.
                 </div>
             ) : null}
+
+            {/* Drill-down Modal */}
+            <StoryModal
+                story={selectedStory}
+                isOpen={!!selectedStory}
+                onClose={() => setSelectedStory(null)}
+            />
         </div>
     );
 }
