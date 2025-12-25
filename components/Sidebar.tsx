@@ -83,7 +83,7 @@ export default function Sidebar() {
                 </div>
 
                 <button
-                    onClick={() => signOut({ callbackUrl: '/' })}
+                    onClick={() => signOut({ callbackUrl: '/login' })}
                     style={{
                         background: 'transparent',
                         border: 'none',

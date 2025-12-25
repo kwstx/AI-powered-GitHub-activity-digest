@@ -29,9 +29,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 session.user.id = token.sub || (token.id as string);
             }
             return session;
-        },
-        async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
-            return baseUrl + "/dashboard";
         }
     },
     pages: {
