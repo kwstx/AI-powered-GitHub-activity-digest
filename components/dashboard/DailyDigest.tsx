@@ -87,8 +87,8 @@ export default function DailyDigest() {
 
     const [useDemoData, setUseDemoData] = useState(false);
 
-    // Fallback to mock data if API fails or demo mode is active
-    const rawEvents = (error || useDemoData) && apiEvents.length === 0 ? MOCK_STORIES : apiEvents;
+    // Only use mock data if explicitly requested
+    const rawEvents = useDemoData ? MOCK_STORIES : apiEvents;
 
     // Filter events by date
     const events = rawEvents.filter(e => {
