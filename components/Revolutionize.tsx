@@ -2,8 +2,7 @@
 
 export default function Revolutionize() {
     return (
-        <section className="container" style={{
-            padding: '8rem 1.5rem',
+        <section className="container section-padding" style={{
             textAlign: 'center',
             position: 'relative',
             overflow: 'visible'
@@ -11,7 +10,7 @@ export default function Revolutionize() {
             <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative' }}>
 
                 {/* Floating Element: Top Left - Contribution Graph */}
-                <div className="card" style={{
+                <div className="card decorative-floating" style={{
                     position: 'absolute',
                     top: '-10px',
                     left: '-5%',
@@ -23,20 +22,27 @@ export default function Revolutionize() {
                     boxShadow: '0 10px 30px -5px rgba(0,0,0,0.1)'
                 }}>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '4px' }}>
-                        {[...Array(21)].map((_, i) => (
-                            <div key={i} style={{
-                                width: '100%',
-                                paddingTop: '100%',
-                                background: Math.random() > 0.6 ? '#10B981' : Math.random() > 0.3 ? '#6EE7B7' : '#E5E7EB',
-                                borderRadius: '2px',
-                                opacity: Math.random() * 0.5 + 0.5
-                            }} />
-                        ))}
+                        {[...Array(21)].map((_, i) => {
+                            // Deterministic pseudo-random based on index to avoid hydration mismatch
+                            const seed = (i * 137.508) % 1;
+                            const color = seed > 0.6 ? '#10B981' : seed > 0.3 ? '#6EE7B7' : '#E5E7EB';
+                            const opacity = (seed * 0.5) + 0.5;
+
+                            return (
+                                <div key={i} style={{
+                                    width: '100%',
+                                    paddingTop: '100%',
+                                    background: color,
+                                    borderRadius: '2px',
+                                    opacity: opacity
+                                }} />
+                            );
+                        })}
                     </div>
                 </div>
 
                 {/* Floating Element: Top Right - Digest Toast */}
-                <div className="card" style={{
+                <div className="card decorative-floating" style={{
                     position: 'absolute',
                     top: '-10px',
                     right: '-5%',
@@ -61,7 +67,7 @@ export default function Revolutionize() {
                 </div>
 
                 {/* Floating Element: Bottom Left - Git Tags */}
-                <div style={{
+                <div className="decorative-floating" style={{
                     position: 'absolute',
                     bottom: '40px',
                     left: '-15%',
@@ -117,9 +123,9 @@ export default function Revolutionize() {
 
                 {/* Main Headline */}
                 <h2 style={{
-                    fontSize: '3.5rem',
+                    fontSize: 'var(--font-h2)', // Use variable
                     lineHeight: 1.2,
-                    fontWeight: 500,
+                    fontWeight: 800,
                     marginBottom: '1.5rem',
                     color: '#111'
                 }}>
@@ -153,18 +159,12 @@ export default function Revolutionize() {
                     marginBottom: '3rem'
                 }}>
                     Stop drowning in notifications. Get a clear, actionable summary of <br />
-                    yesterday's code activity, delivered every morning.
+                    recent code activity, organized for your daily review.
                 </p>
 
             </div>
 
-            <style jsx>{`
-        @keyframes float {
-            0% { transform: translateY(0px) rotate(var(--r, 0deg)); }
-            50% { transform: translateY(-10px) rotate(var(--r, 0deg)); }
-            100% { transform: translateY(0px) rotate(var(--r, 0deg)); }
-        }
-      `}</style>
+
         </section>
     );
 }
