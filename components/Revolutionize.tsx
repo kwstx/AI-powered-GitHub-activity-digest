@@ -2,8 +2,7 @@
 
 export default function Revolutionize() {
     return (
-        <section className="container" style={{
-            padding: '8rem 1.5rem',
+        <section className="container section-padding" style={{
             textAlign: 'center',
             position: 'relative',
             overflow: 'visible'
@@ -11,7 +10,7 @@ export default function Revolutionize() {
             <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative' }}>
 
                 {/* Floating Element: Top Left - Contribution Graph */}
-                <div className="card" style={{
+                <div className="card decorative-floating" style={{
                     position: 'absolute',
                     top: '-10px',
                     left: '-5%',
@@ -43,7 +42,7 @@ export default function Revolutionize() {
                 </div>
 
                 {/* Floating Element: Top Right - Digest Toast */}
-                <div className="card" style={{
+                <div className="card decorative-floating" style={{
                     position: 'absolute',
                     top: '-10px',
                     right: '-5%',
@@ -68,7 +67,7 @@ export default function Revolutionize() {
                 </div>
 
                 {/* Floating Element: Bottom Left - Git Tags */}
-                <div style={{
+                <div className="decorative-floating" style={{
                     position: 'absolute',
                     bottom: '40px',
                     left: '-15%',
@@ -124,7 +123,7 @@ export default function Revolutionize() {
 
                 {/* Main Headline */}
                 <h2 style={{
-                    fontSize: '3.5rem',
+                    fontSize: 'var(--font-h2)', // Use variable
                     lineHeight: 1.2,
                     fontWeight: 800,
                     marginBottom: '1.5rem',
