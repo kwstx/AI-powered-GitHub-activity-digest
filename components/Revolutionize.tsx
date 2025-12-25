@@ -23,22 +23,15 @@ export default function Revolutionize() {
                     boxShadow: '0 10px 30px -5px rgba(0,0,0,0.1)'
                 }}>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '4px' }}>
-                        {[...Array(21)].map((_, i) => {
-                            // Deterministic pseudo-random based on index to avoid hydration mismatch
-                            const seed = (i * 137.508) % 1;
-                            const color = seed > 0.6 ? '#10B981' : seed > 0.3 ? '#6EE7B7' : '#E5E7EB';
-                            const opacity = (seed * 0.5) + 0.5;
-
-                            return (
-                                <div key={i} style={{
-                                    width: '100%',
-                                    paddingTop: '100%',
-                                    background: color,
-                                    borderRadius: '2px',
-                                    opacity: opacity
-                                }} />
-                            );
-                        })}
+                        {[...Array(21)].map((_, i) => (
+                            <div key={i} style={{
+                                width: '100%',
+                                paddingTop: '100%',
+                                background: Math.random() > 0.6 ? '#10B981' : Math.random() > 0.3 ? '#6EE7B7' : '#E5E7EB',
+                                borderRadius: '2px',
+                                opacity: Math.random() * 0.5 + 0.5
+                            }} />
+                        ))}
                     </div>
                 </div>
 
@@ -126,7 +119,7 @@ export default function Revolutionize() {
                 <h2 style={{
                     fontSize: '3.5rem',
                     lineHeight: 1.2,
-                    fontWeight: 800,
+                    fontWeight: 500,
                     marginBottom: '1.5rem',
                     color: '#111'
                 }}>
@@ -160,12 +153,18 @@ export default function Revolutionize() {
                     marginBottom: '3rem'
                 }}>
                     Stop drowning in notifications. Get a clear, actionable summary of <br />
-                    recent code activity, organized for your daily review.
+                    yesterday's code activity, delivered every morning.
                 </p>
 
             </div>
 
-
+            <style jsx>{`
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(var(--r, 0deg)); }
+            50% { transform: translateY(-10px) rotate(var(--r, 0deg)); }
+            100% { transform: translateY(0px) rotate(var(--r, 0deg)); }
+        }
+      `}</style>
         </section>
     );
 }
