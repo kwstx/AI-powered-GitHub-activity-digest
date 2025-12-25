@@ -31,6 +31,8 @@ export default function DateRangePicker({ startDate, endDate, onChange }: DateRa
         const end = new Date();
         const start = new Date();
         start.setDate(end.getDate() - days);
+        // Ensure we capture from the beginning of the calculated start day
+        start.setHours(0, 0, 0, 0);
         onChange(start, end);
         setIsOpen(false);
     };
