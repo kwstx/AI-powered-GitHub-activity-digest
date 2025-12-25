@@ -151,3 +151,156 @@ h3 {
     grid-column: span 2;
   }
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- RESPONSIVE UTILITIES --- */
+
+/* Mobile-first section spacing */
+.section-padding {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 6rem;
+    padding-bottom: 12rem;
+  }
+}
+
+/* Flexible Grid/Stack */
+.responsive-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .responsive-flex {
+    flex-direction: row;
+    gap: 4rem;
+  }
+}
+
+/* HERO SECTION SPECIFIC */
+.hero-wrapper {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  /* Prevent horizontal scroll on mobile */
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+  .hero-wrapper {
+    min-height: 90vh;
+    padding-left: 0;
+    padding-right: 0;
+    overflow: visible;
+    /* Restore overflow for desktop shadows */
+  }
+}
+
+.hero-headline {
+  font-size: 2.5rem;
+  /* Mobile font size */
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: hsl(var(--foreground));
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .hero-headline {
+    font-size: var(--font-h1);
+    /* Desktop font size 3.5rem+ */
+  }
+}
+
+.hero-subheadline {
+  font-size: 1rem;
+  line-height: 1.5;
+  opacity: 0.6;
+  max-width: 540px;
+  margin: 0 auto;
+  font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .hero-subheadline {
+    font-size: 1.25rem;
+    line-height: 1.6;
+  }
+}
+
+/* Hero Cards Container */
+.hero-cards-container {
+  width: 100%;
+  max-width: 1400px;
+  height: 300px;
+  /* Reduced height for mobile */
+  position: relative;
+  perspective: 1000px;
+  margin-top: 2rem;
+  /* On mobile, we might want to scale this whole thing down */
+  transform: scale(0.6);
+  transform-origin: center top;
+}
+
+@media (min-width: 768px) {
+  .hero-cards-container {
+    height: 550px;
+    margin-top: -2rem;
+    transform: none;
+    /* Reset scale */
+  }
+}
+
+/* Floating Decorative Elements */
+.decorative-floating {
+  display: none;
+  /* Hidden on mobile by default */
+}
+
+@media (min-width: 768px) {
+  .decorative-floating {
+    display: block;
+    /* Visible on desktop */
+  }
+}
+
+.revolutionize-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .revolutionize-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
