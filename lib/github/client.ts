@@ -128,6 +128,35 @@ export async function fetchWorkflowRuns(
 }
 
 /**
+ * Fetch the most recent failed workflow run to calculate stability streak
+ */
+export async function fetchLastFailure(
+    octokit: Octokit,
+    owner: string,
+    repo: string
+) {
+    try {
+        const { data } = await octokit.actions.listWorkflowRunsForRepo({
+            owner,
+            repo,
+            status: 'completed',
+            conclusion: 'failure',
+            per_page: 1, // We only need the very last one
+        });
+
+        if (data.workflow_runs && data.workflow_runs.length > 0) {
+            return data.workflow_runs[0].created_at;
+        }
+        return null;
+    } catch (error) {
+        // Warning: if Actions are disabled or not used, this might 403 or 404. 
+        // We catch silently and return null to assume "no failure".
+        console.warn(`Could not fetch failure history for ${owner}/${repo} (Actions may be disabled)`, error);
+        return null;
+    }
+}
+
+/**
  * Fetch user's accessible repositories
  */
 export async function fetchUserRepos(octokit: Octokit) {

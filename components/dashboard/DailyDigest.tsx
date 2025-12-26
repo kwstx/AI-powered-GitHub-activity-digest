@@ -73,7 +73,7 @@ export default function DailyDigest() {
         end: new Date()
     });
 
-    const { events: apiEvents, loading: eventsLoading, error, refetch } = useGitHubEvents(repos, dateRange);
+    const { events: apiEvents, streak, loading: eventsLoading, error, refetch } = useGitHubEvents(repos, dateRange);
     const loading = reposLoading || eventsLoading;
 
     // Safety timeout to prevent infinite loading (Legacy safety, SWR usually handles this but good to keep)
@@ -141,18 +141,8 @@ export default function DailyDigest() {
     };
 
     // --- GAMIFICATION: CLEAN STREAK ---
-    const latestWarning = rawEvents.find(e => e.category === 'warning');
-    let streakDays = 0;
-
-    if (latestWarning) {
-        const lastIssueDate = new Date(latestWarning.timestamp);
-        const now = new Date();
-        const diffTime = Math.abs(now.getTime() - lastIssueDate.getTime());
-        streakDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    } else {
-        // If no warnings in loaded data (which is usually last 7-30 days), assume at least 7
-        streakDays = 7;
-    }
+    // Use real backend streak if available, otherwise default to demo value or 7
+    const streakDays = useDemoData ? 12 : (streak ?? 7);
 
     // --- BROWSER NOTIFICATIONS ---
     const [latestSeenId, setLatestSeenId] = useState<string | null>(null);
