@@ -1,11 +1,10 @@
 import { ProcessedEvent } from '../github/types';
 import { interpretEvent } from '../ai/classifier';
-import { generateLocalSummary } from '../ai/local_llm';
-
+import { generateEventSummary } from '../ai/gemini'; // Switch to Gemini (External API)
 
 /**
  * Server-side processor for GitHub data
- * Integrates AI classification for priority and impact analysis
+ * Integrates AI classification and Gemini Summarization
  */
 export async function processGitHubDataServer(rawData: any[]): Promise<ProcessedEvent[]> {
     const events: ProcessedEvent[] = [];
@@ -20,26 +19,23 @@ export async function processGitHubDataServer(rawData: any[]): Promise<Processed
                 const isMerged = pr.merged_at !== null;
 
                 // Prepare text for AI analysis
-                // Limit body length to avoid excessive processing time
                 const aiText = `Title: ${pr.title}. ${pr.body ? 'Description: ' + pr.body.substring(0, 200) : ''}`;
 
                 // Get AI classification
-                // Get AI classification
                 let aiResult: any;
                 let summaryResult: { summary: string; impact: string } | null = null;
+                const hasGemini = !!process.env.GEMINI_API_KEY;
 
                 try {
                     // 1. Fast Classification
                     aiResult = await interpretEvent(aiText);
 
-                    // 2. Local AI Summarization (Hybrid Approach)
-                    // TEMPORARILY DISABLED: The local model is too heavy for Vercel Free Tier (OOM/Timeout).
-                    // Reverting to purely heuristic/classifier logic for stability.
-                    /*
-                    if (isMerged || aiResult.score > 0.8) {
-                        summaryResult = await generateLocalSummary(pr.title, pr.body);
+                    // 2. Gemini AI Summarization (External API with 10 RPM Rate Limit)
+                    // Only run for Merged PRs or if the classifier found something interesting (score > 0.8)
+                    // Checks if Key exists first
+                    if (hasGemini && (isMerged || aiResult.score > 0.8)) {
+                        summaryResult = await generateEventSummary(pr.title, pr.body, 'pr');
                     }
-                    */
 
                 } catch (e) {
                     console.error(`[Processor] AI Failed for PR ${pr.number}:`, e);
@@ -77,7 +73,7 @@ export async function processGitHubDataServer(rawData: any[]): Promise<Processed
                         priority = 'low';
                     }
 
-                    // Override if urgent keywords exist (heuristic check as fallback/boost)
+                    // Override if urgent keywords exist
                     if (pr.title.toLowerCase().includes('urgent') || pr.title.toLowerCase().includes('hotfix')) {
                         priority = 'high';
                         category = 'warning';
@@ -92,12 +88,14 @@ export async function processGitHubDataServer(rawData: any[]): Promise<Processed
                     title: isMerged
                         ? `PR #${pr.number} merged: ${pr.title}`
                         : `PR #${pr.number}: ${pr.title}`,
-                    summary: `Pull request by ${pr.user.login}. ${aiResult.reason}`,
+                    // Use Gemini summary if available, otherwise heuristic fallback
+                    summary: (summaryResult && summaryResult.summary) ? summaryResult.summary : `Pull request by ${pr.user.login}. ${aiResult.reason}`,
                     timestamp: pr.updated_at,
                     repo: repoName,
                     url: pr.html_url,
                     priority,
-                    impact: impact,
+                    // Use Gemini impact if available, otherwise heuristic fallback
+                    impact: (summaryResult && summaryResult.impact) ? summaryResult.impact : impact,
                     priorityReason: aiResult.reason,
                 });
             }
