@@ -1,20 +1,20 @@
-# GitCalm 🌊
+# GitCalm
 
 GitCalm is your daily sanctuary for GitHub activity. It cuts through the noise of endless notifications by intelligently summarizing your repository events into a clean, visual dashboard. Focus on what matters: outcomes, blockers, and essential updates.
 
-## ✨ Features
+## Features
 
-*   **🔌 Seamless Repo Connection**: Connect your GitHub account and select exactly which repositories you want to track.
-*   **📊 Visual Pulse Dashboard**: An interactive "Bubble Chart" gives you an instant health check of your projects:
-    *   **💛 Outcomes**: See merged PRs and completed work.
-    *   **🔴 Attention**: Identify failed builds and critical issues immediately.
-    *   **💜 Updates**: Track general activity without the clutter.
-*   **🧠 Intelligent Summarization**: Categorizes complex GitHub events (PRs, Issues, CI/CD) into human-readable summaries using smart keyword classification.
-*   **🗓️ Time-Travel Filtering**: View activity by "Today", "Last 7 Days", or custom ranges to zoom in on specific sprints or historical data.
-*   **📋 Daily Digest**: A simplified feed that prioritizes "Outcomes" and "Attention Items" over mundane logs.
-*   **📤 One-Click Reporting**: Generate and copy a Markdown summary of your day - perfect for daily standups or work logs.
+*   **Seamless Repo Connection**: Connect your GitHub account and select exactly which repositories you want to track.
+*   **Visual Pulse Dashboard**: An interactive "Bubble Chart" gives you an instant health check of your projects:
+    *   **Outcomes**: See merged PRs and completed work.
+    *   **Attention**: Identify failed builds and critical issues immediately.
+    *   **Updates**: Track general activity without the clutter.
+*   **Intelligent Summarization**: Categorizes complex GitHub events (PRs, Issues, CI/CD) into human-readable summaries using smart keyword classification.
+*   **Time-Travel Filtering**: View activity by "Today", "Last 7 Days", or custom ranges to zoom in on specific sprints or historical data.
+*   **Daily Digest**: A simplified feed that prioritizes "Outcomes" and "Attention Items" over mundane logs.
+*   **One-Click Reporting**: Generate and copy a Markdown summary of your day - perfect for daily standups or work logs.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 *   **Framework**: [Next.js 15+](https://nextjs.org/) (App Router)
 *   **Language**: TypeScript
@@ -23,7 +23,7 @@ GitCalm is your daily sanctuary for GitHub activity. It cuts through the noise o
 *   **Auth**: [Auth.js (NextAuth)](https://authjs.dev/)
 *   **Integration**: GitHub REST API
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -67,10 +67,10 @@ GitCalm is your daily sanctuary for GitHub activity. It cuts through the noise o
 
 6.  Open [http://localhost:3000](http://localhost:3000) to start using GitCalm.
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please fork the repository and submit a Pull Request.
 
-## 📄 License
+## License
 
 This project is open source and available under the [MIT License](LICENSE).
