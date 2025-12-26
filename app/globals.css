@@ -546,21 +546,39 @@ h3 {
   margin-bottom: 2rem;
 }
 
-/* Mobile Sizes (Scaled ~75% of desktop) */
+/* Mobile Sizes & Positions (Optimized to fit 320px height) */
 .bubble-yellow {
   width: 180px;
   height: 180px;
   font-size: 0.8rem;
+  /* Positioning */
+  position: absolute;
+  top: 0;
+  /* Minimized margin */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
 }
 
 .bubble-red {
   width: 135px;
   height: 135px;
+  /* Positioning */
+  position: absolute;
+  bottom: 0;
+  /* Minimized margin */
+  left: 0;
+  z-index: 2;
 }
 
 .bubble-purple {
   width: 95px;
   height: 95px;
+  /* Positioning */
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+  z-index: 3;
 }
 
 @media (min-width: 640px) {
@@ -574,16 +592,24 @@ h3 {
     width: 240px;
     height: 240px;
     font-size: 0.9rem;
+    /* Restore Desktop Spacing */
+    top: 10px;
   }
 
   .bubble-red {
     width: 180px;
     height: 180px;
+    /* Restore Desktop Spacing */
+    bottom: 10px;
+    left: 5%;
   }
 
   .bubble-purple {
     width: 130px;
     height: 130px;
+    /* Restore Desktop Spacing */
+    bottom: 30px;
+    right: 10%;
   }
 }
 

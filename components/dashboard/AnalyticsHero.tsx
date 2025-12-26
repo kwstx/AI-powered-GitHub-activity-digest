@@ -107,10 +107,7 @@ export default function AnalyticsHero({
                         className="bubble-yellow"
                         onClick={() => handleCategoryClick('success')}
                         style={{
-                            position: 'absolute',
-                            top: '10px',
-                            left: '50%',
-                            transform: 'translateX(-50%)',
+                            // Position handled by CSS class .bubble-yellow
                             borderRadius: '50%',
                             background: '#FCD34D',
                             display: 'flex',
@@ -169,9 +166,7 @@ export default function AnalyticsHero({
                         className="bubble-red"
                         onClick={() => handleCategoryClick('warning')}
                         style={{
-                            position: 'absolute',
-                            bottom: '10px',
-                            left: '5%',
+                            // Position handled by CSS class .bubble-red
                             borderRadius: '50%',
                             background: '#EF4444',
                             display: 'flex',
@@ -227,9 +222,7 @@ export default function AnalyticsHero({
                         className="bubble-purple"
                         onClick={() => handleCategoryClick('info')}
                         style={{
-                            position: 'absolute',
-                            bottom: '30px',
-                            right: '10%',
+                            // Position handled by CSS class .bubble-purple
                             borderRadius: '50%',
                             background: '#8B5CF6',
                             backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px)',
