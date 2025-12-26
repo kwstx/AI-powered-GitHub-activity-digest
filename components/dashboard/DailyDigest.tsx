@@ -96,11 +96,16 @@ export default function DailyDigest() {
         return eventDate >= dateRange.start && eventDate <= dateRange.end;
     });
 
+    // Filter events into categories for detailed display
+    const outcomes = events.filter(e => e.category === 'success');
+    const attention = events.filter(e => e.category === 'warning');
+    const updates = events.filter(e => e.category === 'info');
+
     // Calculate category counts based on filtered events
     const categoryCounts = {
-        success: events.filter(e => e.category === 'success').length,
-        warning: events.filter(e => e.category === 'warning').length,
-        info: events.filter(e => e.category === 'info').length,
+        success: outcomes.length,
+        warning: attention.length,
+        info: updates.length,
     };
 
     // Filter events by selected category
@@ -138,7 +143,13 @@ export default function DailyDigest() {
             <AnalyticsHero
                 selectedCategory={selectedCategory}
                 onSelectCategory={setSelectedCategory}
+            <AnalyticsHero
+                selectedCategory={selectedCategory}
+                onSelectCategory={setSelectedCategory}
                 counts={categoryCounts}
+                outcomes={outcomes}
+                attention={attention}
+                updates={updates}
                 loading={loading}
                 dateRange={dateRange}
                 onDateChange={(start, end) => setDateRange({ start, end })}

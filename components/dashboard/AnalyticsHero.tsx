@@ -16,6 +16,8 @@ interface AnalyticsHeroProps {
 
 import DateRangePicker from './DateRangePicker';
 
+import { ProcessedEvent } from '@/lib/github/types';
+
 interface AnalyticsHeroProps {
     onSelectCategory: (category: StoryType | null) => void;
     selectedCategory: StoryType | null;
@@ -24,6 +26,9 @@ interface AnalyticsHeroProps {
         warning: number;
         info: number;
     };
+    outcomes?: ProcessedEvent[];
+    attention?: ProcessedEvent[];
+    updates?: ProcessedEvent[];
     loading?: boolean;
     dateRange: { start: Date; end: Date };
     onDateChange: (start: Date, end: Date) => void;
@@ -33,6 +38,9 @@ export default function AnalyticsHero({
     onSelectCategory,
     selectedCategory,
     counts = { success: 0, warning: 0, info: 0 },
+    outcomes = [],
+    attention = [],
+    updates = [],
     loading = false,
     dateRange,
     onDateChange
@@ -102,42 +110,60 @@ export default function AnalyticsHero({
                             top: '10px',
                             left: '50%',
                             transform: 'translateX(-50%)',
-                            width: '220px',
-                            height: '220px',
+                            width: '240px',
+                            height: '240px',
                             borderRadius: '50%',
                             background: '#FCD34D',
                             display: 'flex',
+                            flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            fontSize: '2.5rem',
+                            fontSize: '0.9rem',
                             fontWeight: 500,
                             color: '#111',
                             zIndex: 1,
                             cursor: getCursor(),
                             opacity: getOpacity('success'),
-                            transition: 'opacity 0.2s'
+                            transition: 'all 0.2s',
+                            overflow: 'hidden',
+                            padding: '1.5rem',
+                            textAlign: 'center',
+                            boxShadow: selectedCategory === 'success' ? '0 10px 30px -5px rgba(251, 191, 36, 0.4)' : 'none'
                         }}
                     >
-                        {loading ? '...' : counts.success}
                         <div style={{
                             position: 'absolute',
-                            top: '-15px',
-                            left: '50%',
-                            transform: 'translateX(-60%)',
+                            top: '15px',
                             background: '#fff',
-                            padding: '0.4rem 0.8rem',
+                            padding: '0.3rem 0.6rem',
                             borderRadius: '12px',
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                            fontSize: '0.75rem',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                            fontSize: '0.7rem',
                             fontWeight: 700,
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '5px',
-                            whiteSpace: 'nowrap'
+                            gap: '4px',
+                            zIndex: 10
                         }}>
                             <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#F59E0B' }}></div>
-                            Outcome
+                            Outcomes ({counts.success})
                         </div>
+
+                        {loading ? (
+                            <span style={{ fontSize: '1.5rem', fontWeight: 600 }}>...</span>
+                        ) : outcomes.length > 0 ? (
+                            <div style={{ width: '100%', maxHeight: '140px', overflowY: 'auto', marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '6px', scrollbarWidth: 'none' }}>
+                                {outcomes.slice(0, 5).map(e => (
+                                    <div key={e.id} style={{ fontSize: '0.75rem', lineHeight: '1.2', background: 'rgba(255,255,255,0.4)', padding: '4px 8px', borderRadius: '6px' }}>
+                                        <div style={{ fontWeight: 700 }}>{e.repo}</div>
+                                        <div style={{ opacity: 0.8, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{e.title.replace(/PR #\d+ merged: /, '')}</div>
+                                    </div>
+                                ))}
+                                {outcomes.length > 5 && <div style={{ fontSize: '0.7rem', opacity: 0.6 }}>+ {outcomes.length - 5} more</div>}
+                            </div>
+                        ) : (
+                            <div style={{ opacity: 0.5, fontSize: '0.8rem' }}>No recent outcomes</div>
+                        )}
                     </div>
 
                     {/* Red Bubble (Attention) */}
@@ -145,43 +171,58 @@ export default function AnalyticsHero({
                         onClick={() => handleCategoryClick('warning')}
                         style={{
                             position: 'absolute',
-                            bottom: '20px',
-                            left: '10%',
-                            width: '160px',
-                            height: '160px',
+                            bottom: '10px',
+                            left: '5%',
+                            width: '180px',
+                            height: '180px',
                             borderRadius: '50%',
                             background: '#EF4444',
                             display: 'flex',
+                            flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            fontSize: '2rem',
-                            fontWeight: 500,
                             color: '#fff',
                             zIndex: 2,
                             opacity: 0.95 * getOpacity('warning'),
                             cursor: getCursor(),
-                            transition: 'opacity 0.2s'
+                            transition: 'all 0.2s',
+                            padding: '1rem',
+                            textAlign: 'center',
+                            overflow: 'hidden',
+                            boxShadow: selectedCategory === 'warning' ? '0 10px 30px -5px rgba(239, 68, 68, 0.4)' : 'none'
                         }}
                     >
-                        {loading ? '...' : counts.warning}
                         <div style={{
                             position: 'absolute',
-                            top: '-15px',
-                            left: '0',
+                            top: '15px',
                             background: '#fff',
-                            padding: '0.4rem 0.8rem',
+                            padding: '0.3rem 0.6rem',
                             borderRadius: '12px',
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                            fontSize: '0.75rem',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                            fontSize: '0.7rem',
                             fontWeight: 700,
                             color: '#111',
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '5px'
+                            gap: '4px',
+                            zIndex: 10
                         }}>
                             <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#EF4444' }}></div>
-                            Attention
+                            Attention ({counts.warning})
                         </div>
+
+                        {loading ? '...' : attention.length > 0 ? (
+                            <div style={{ width: '100%', maxHeight: '100px', overflowY: 'auto', marginTop: '1.2rem', display: 'flex', flexDirection: 'column', gap: '4px', scrollbarWidth: 'none' }}>
+                                {attention.slice(0, 3).map(e => (
+                                    <div key={e.id} style={{ fontSize: '0.7rem', lineHeight: '1.1', background: 'rgba(0,0,0,0.1)', padding: '3px 6px', borderRadius: '4px' }}>
+                                        <div style={{ fontWeight: 700 }}>{e.repo}</div>
+                                    </div>
+                                ))}
+                                {attention.length > 3 && <div style={{ fontSize: '0.65rem', opacity: 0.8 }}>+ {attention.length - 3} more</div>}
+                            </div>
+                        ) : (
+                            <div style={{ opacity: 0.7, fontSize: '0.75rem' }}>All good!</div>
+                        )}
                     </div>
 
                     {/* Purple Bubble (Update) */}
@@ -189,44 +230,52 @@ export default function AnalyticsHero({
                         onClick={() => handleCategoryClick('info')}
                         style={{
                             position: 'absolute',
-                            bottom: '40px',
-                            right: '15%',
-                            width: '100px',
-                            height: '100px',
+                            bottom: '30px',
+                            right: '10%',
+                            width: '130px',
+                            height: '130px',
                             borderRadius: '50%',
                             background: '#8B5CF6',
-                            backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.2) 10px, rgba(255,255,255,0.2) 20px)',
+                            backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px)',
                             display: 'flex',
+                            flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            fontSize: '1.2rem',
-                            fontWeight: 600,
                             color: '#fff',
                             zIndex: 3,
                             cursor: getCursor(),
                             opacity: getOpacity('info'),
-                            transition: 'opacity 0.2s'
+                            transition: 'all 0.2s',
+                            padding: '0.8rem',
+                            textAlign: 'center',
+                            overflow: 'hidden',
+                            boxShadow: selectedCategory === 'info' ? '0 10px 30px -5px rgba(139, 92, 246, 0.4)' : 'none'
                         }}
                     >
-                        {loading ? '...' : counts.info}
                         <div style={{
                             position: 'absolute',
-                            bottom: '-15px',
-                            right: '-10px',
+                            bottom: '10px',
                             background: '#fff',
-                            padding: '0.4rem 0.8rem',
-                            borderRadius: '12px',
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                            fontSize: '0.75rem',
+                            padding: '0.2rem 0.5rem',
+                            borderRadius: '10px',
+                            boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
+                            fontSize: '0.65rem',
                             fontWeight: 700,
                             color: '#111',
                             display: 'flex',
                             alignItems: 'center',
-                            gap: '5px'
+                            gap: '3px',
+                            zIndex: 10
                         }}>
-                            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#8B5CF6' }}></div>
-                            Update
+                            <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#8B5CF6' }}></div>
+                            Updates ({counts.info})
                         </div>
+
+                        {loading ? '...' : updates.length > 0 ? (
+                            <div style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '0.5rem' }}>
+                                {updates.length}
+                            </div>
+                        ) : <div style={{ fontSize: '1.2rem', opacity: 0.6 }}>0</div>}
                     </div>
 
                 </div>
