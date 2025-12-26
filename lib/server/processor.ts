@@ -1,7 +1,7 @@
 import { ProcessedEvent } from '../github/types';
 import { interpretEvent } from '../ai/classifier';
 import { generateLocalSummary } from '../ai/local_llm';
-import { generateEventSummary } from '../ai/gemini';
+
 
 /**
  * Server-side processor for GitHub data
@@ -91,12 +91,12 @@ export async function processGitHubDataServer(rawData: any[]): Promise<Processed
                     title: isMerged
                         ? `PR #${pr.number} merged: ${pr.title}`
                         : `PR #${pr.number}: ${pr.title}`,
-                    summary: geminiResult ? geminiResult.summary : `Pull request by ${pr.user.login}. ${aiResult.reason}`,
+                    summary: summaryResult ? summaryResult.summary : `Pull request by ${pr.user.login}. ${aiResult.reason}`,
                     timestamp: pr.updated_at,
                     repo: repoName,
                     url: pr.html_url,
                     priority,
-                    impact: geminiResult ? geminiResult.impact : impact,
+                    impact: summaryResult ? summaryResult.impact : impact,
                     priorityReason: aiResult.reason,
                 });
             }
