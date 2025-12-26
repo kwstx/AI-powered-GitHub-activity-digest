@@ -100,7 +100,7 @@ export default function AnalyticsHero({
 
             <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
                 {/* Left: Bubble Chart Visual */}
-                <div className="bubble-container" style={{ flex: 1, minWidth: '300px', position: 'relative' }}>
+                <div className="bubble-container" style={{ flex: 1, minWidth: 'auto', position: 'relative' }}>
 
                     {/* Yellow Bubble (Outcome) */}
                     <div
