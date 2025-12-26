@@ -536,3 +536,50 @@ h3 {
     display: block !important;
   }
 }
+
+/* Analytics Bubbles Responsiveness */
+.bubble-container {
+  height: 320px;
+  width: 100%;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.bubble-yellow {
+  width: 180px;
+  height: 180px;
+  font-size: 0.8rem;
+}
+
+.bubble-red {
+  width: 130px;
+  height: 130px;
+}
+
+.bubble-purple {
+  width: 100px;
+  height: 100px;
+}
+
+@media (min-width: 640px) {
+  .bubble-container {
+    height: 320px;
+    margin-bottom: 0;
+  }
+
+  .bubble-yellow {
+    width: 240px;
+    height: 240px;
+    font-size: 0.9rem;
+  }
+
+  .bubble-red {
+    width: 180px;
+    height: 180px;
+  }
+
+  .bubble-purple {
+    width: 130px;
+    height: 130px;
+  }
+}

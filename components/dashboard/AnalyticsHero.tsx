@@ -100,25 +100,23 @@ export default function AnalyticsHero({
 
             <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
                 {/* Left: Bubble Chart Visual */}
-                <div style={{ flex: 1, minWidth: '300px', position: 'relative', height: '320px' }}>
+                <div className="bubble-container" style={{ flex: 1, minWidth: '300px', position: 'relative' }}>
 
                     {/* Yellow Bubble (Outcome) */}
                     <div
+                        className="bubble-yellow"
                         onClick={() => handleCategoryClick('success')}
                         style={{
                             position: 'absolute',
                             top: '10px',
                             left: '50%',
                             transform: 'translateX(-50%)',
-                            width: '240px',
-                            height: '240px',
                             borderRadius: '50%',
                             background: '#FCD34D',
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            fontSize: '0.9rem',
                             fontWeight: 500,
                             color: '#111',
                             zIndex: 1,
@@ -168,13 +166,12 @@ export default function AnalyticsHero({
 
                     {/* Red Bubble (Attention) */}
                     <div
+                        className="bubble-red"
                         onClick={() => handleCategoryClick('warning')}
                         style={{
                             position: 'absolute',
                             bottom: '10px',
                             left: '5%',
-                            width: '180px',
-                            height: '180px',
                             borderRadius: '50%',
                             background: '#EF4444',
                             display: 'flex',
@@ -227,13 +224,12 @@ export default function AnalyticsHero({
 
                     {/* Purple Bubble (Update) */}
                     <div
+                        className="bubble-purple"
                         onClick={() => handleCategoryClick('info')}
                         style={{
                             position: 'absolute',
                             bottom: '30px',
                             right: '10%',
-                            width: '130px',
-                            height: '130px',
                             borderRadius: '50%',
                             background: '#8B5CF6',
                             backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px)',
