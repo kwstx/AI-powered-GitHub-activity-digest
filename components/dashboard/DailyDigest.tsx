@@ -195,34 +195,7 @@ export default function DailyDigest() {
                     </p>
                 </div>
 
-                {/* Gamification Badge */}
-                <div style={{
-                    background: (streakDays >= 3 || isPerfect) ? '#DCFCE7' : '#FEE2E2',
-                    color: (streakDays >= 3 || isPerfect) ? '#166534' : '#991B1B',
-                    padding: '0.5rem 1rem',
-                    borderRadius: '16px',
-                    fontWeight: 700,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    boxShadow: '0 2px 10px rgba(0,0,0,0.05)'
-                }}>
-                    <span style={{ fontSize: '1.2rem', display: 'flex', alignItems: 'center' }}>
-                        {isStreakLoading ? (
-                            <span style={{ fontSize: '1rem', opacity: 0.5 }}>...</span>
-                        ) : (streakDays >= 3 || isPerfect) ? (
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: '#15803d' }}><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
-                        ) : (
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: '#b91c1c' }}><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" /></svg>
-                        )}
-                    </span>
-                    <div>
-                        <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', opacity: 0.8 }}>Stability Streak</div>
-                        <div style={{ fontSize: '1.1rem', lineHeight: 1 }}>
-                            {isStreakLoading ? 'Calculating...' : isPerfect ? 'Perfect' : `${streakDays} Days`}
-                        </div>
-                    </div>
-                </div>
+                {/* Gamification Badge Removed as per user request */}
             </div>
 
             {/* Visual Analytics Hero */}
