@@ -425,13 +425,13 @@ export default function DailyDigest({ initialProfile }: { initialProfile?: any }
                             <button
                                 onClick={() => setSimpleMode(!simpleMode)}
                                 style={{
-                                    background: simpleMode ? '#e0f2fe' : '#f8fafc',
-                                    border: `1px solid ${simpleMode ? '#0ea5e9' : '#e2e8f0'}`,
+                                    background: simpleMode ? '#f8fafc' : '#dbeafe',
+                                    border: `1px solid ${simpleMode ? '#e2e8f0' : '#3b82f6'}`,
                                     padding: '0.5rem 1rem',
                                     borderRadius: '20px',
                                     fontSize: '0.85rem',
                                     fontWeight: 600,
-                                    color: simpleMode ? '#0284c7' : '#64748b',
+                                    color: simpleMode ? '#64748b' : '#1e40af',
                                     cursor: 'pointer',
                                     transition: 'all 0.2s',
                                     display: 'flex',
@@ -439,7 +439,17 @@ export default function DailyDigest({ initialProfile }: { initialProfile?: any }
                                     gap: '6px'
                                 }}
                             >
-                                {simpleMode ? '👓 Minimal View' : '👓 Detail View'}
+                                {simpleMode ? (
+                                    <>
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /><line x1="11" y1="8" x2="11" y2="14" /><line x1="8" y1="11" x2="14" y2="11" /></svg>
+                                        Detail View
+                                    </>
+                                ) : (
+                                    <>
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><line x1="3" y1="9" x2="21" y2="9" /><line x1="9" y1="21" x2="9" y2="9" /></svg>
+                                        Simple View
+                                    </>
+                                )}
                             </button>
                         </div>
                     </div>
