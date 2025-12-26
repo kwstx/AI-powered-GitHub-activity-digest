@@ -75,25 +75,18 @@ export default function DailyDigest() {
     const { events: apiEvents, loading: eventsLoading, error, refetch } = useGitHubEvents(repos, dateRange);
     const loading = reposLoading || eventsLoading;
 
-    // Safety timeout to prevent infinite loading
+    // Safety timeout to prevent infinite loading (Legacy safety, SWR usually handles this but good to keep)
     useEffect(() => {
         const timer = setTimeout(() => {
             if (loading) {
                 console.warn('[DailyDigest] Fetch timed out, forcing fallback.');
                 setReposLoading(false);
             }
-        }, 8000); // 8 seconds timeout
+        }, 8000);
         return () => clearTimeout(timer);
     }, [loading]);
 
-    // Live Polling: Auto-refresh every 5 minutes
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            console.log('[DailyDigest] Auto-refreshing data...');
-            refetch();
-        }, 300000); // 5 minutes
-        return () => clearInterval(intervalId);
-    }, [refetch]);
+    // Note: Manual Polling removed in favor of SWR's refreshInterval
 
     const [useDemoData, setUseDemoData] = useState(false);
 
@@ -146,16 +139,86 @@ export default function DailyDigest() {
         return `${diffDays} days ago`;
     };
 
+    // --- GAMIFICATION: CLEAN STREAK ---
+    const latestWarning = rawEvents.find(e => e.category === 'warning');
+    let streakDays = 0;
+
+    if (latestWarning) {
+        const lastIssueDate = new Date(latestWarning.timestamp);
+        const now = new Date();
+        const diffTime = Math.abs(now.getTime() - lastIssueDate.getTime());
+        streakDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    } else {
+        // If no warnings in loaded data (which is usually last 7-30 days), assume at least 7
+        streakDays = 7;
+    }
+
+    // --- BROWSER NOTIFICATIONS ---
+    const [latestSeenId, setLatestSeenId] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (typeof window !== 'undefined' && 'Notification' in window) {
+            Notification.requestPermission();
+        }
+    }, []);
+
+    useEffect(() => {
+        if (!events || events.length === 0) return;
+
+        // Find the absolutely newest event
+        const newestEvent = events[0]; // Events are sorted desc by default from API match
+
+        if (latestSeenId && newestEvent.id !== latestSeenId) {
+            // New event detected!
+            if (document.hidden && newestEvent.category !== 'info') { // Only notify if tab hidden & important
+                if (Notification.permission === 'granted') {
+                    new Notification(`GitCalm: ${newestEvent.repo}`, {
+                        body: newestEvent.title,
+                        icon: '/favicon.ico' // Ensure valid path
+                    });
+                }
+            }
+        }
+
+        // Update tracker
+        if (newestEvent) {
+            setLatestSeenId(newestEvent.id);
+        }
+
+    }, [events, latestSeenId]);
+
+
     return (
         <div>
             {/* Personalized Header */}
-            <div style={{ marginBottom: '3rem' }}>
-                <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
-                    Good morning, Alex.
-                </h1>
-                <p style={{ fontSize: '1.1rem', color: '#64748b' }}>
-                    Here is your summarized activity for <strong>today</strong>.
-                </p>
+            <div style={{ marginBottom: '3rem', display: 'flex', justifyContent: 'space-between', alignItems: 'end' }}>
+                <div>
+                    <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
+                        Good morning, Alex.
+                    </h1>
+                    <p style={{ fontSize: '1.1rem', color: '#64748b' }}>
+                        Here is your summarized activity for <strong>today</strong>.
+                    </p>
+                </div>
+
+                {/* Gamification Badge */}
+                <div style={{
+                    background: streakDays >= 3 ? '#DCFCE7' : '#FEE2E2',
+                    color: streakDays >= 3 ? '#166534' : '#991B1B',
+                    padding: '0.5rem 1rem',
+                    borderRadius: '16px',
+                    fontWeight: 700,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    boxShadow: '0 2px 10px rgba(0,0,0,0.05)'
+                }}>
+                    <span style={{ fontSize: '1.2rem' }}>{streakDays >= 3 ? '🔥' : '⚠️'}</span>
+                    <div>
+                        <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', opacity: 0.8 }}>Stability Streak</div>
+                        <div style={{ fontSize: '1.1rem', lineHeight: 1 }}>{streakDays >= 7 ? '7+ Days' : `${streakDays} Days`}</div>
+                    </div>
+                </div>
             </div>
 
             {/* Visual Analytics Hero */}
