@@ -42,10 +42,10 @@ export default function HowItWorks() {
                     <p style={{ fontSize: '1.1rem', color: '#666' }}>From setup to everyday flow, we've made summarization effortless.</p>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'start' }}>
+                <div className="how-it-works-grid">
 
                     {/* Left: Dynamic Visual (The "Phone" / Card) */}
-                    <div style={{ position: 'sticky', top: '120px' }}>
+                    <div className="device-sticky-wrapper">
                         <div style={{
                             background: 'rgba(255, 255, 255, 0.5)',
                             backdropFilter: 'blur(20px)',
@@ -61,7 +61,8 @@ export default function HowItWorks() {
                             <div className="glass-card" style={{
                                 background: 'rgba(255, 255, 255, 0.9)',
                                 borderRadius: '24px',
-                                width: '300px',
+                                width: '100%',
+                                maxWidth: '300px',
                                 height: '500px',
                                 padding: '2rem',
                                 boxShadow: '0 20px 40px -10px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05)',
