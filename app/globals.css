@@ -538,23 +538,23 @@ h3 {
 }
 
 /* Analytics Bubbles Responsiveness */
+/* Analytics Bubbles Responsiveness */
 .bubble-container {
-  height: 320px;
+  height: 380px;
+  /* Increased from 320px for clear stacking */
   width: 100%;
   min-width: 0;
   position: relative;
   margin-bottom: 2rem;
 }
 
-/* Mobile Sizes & Positions (Optimized to fit 320px height) */
+/* Mobile Sizes & Positions */
 .bubble-yellow {
   width: 180px;
   height: 180px;
   font-size: 0.8rem;
-  /* Positioning */
   position: absolute;
   top: 0;
-  /* Minimized margin */
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
@@ -563,27 +563,27 @@ h3 {
 .bubble-red {
   width: 135px;
   height: 135px;
-  /* Positioning */
   position: absolute;
   bottom: 0;
-  /* Minimized margin */
-  left: 0;
+  left: 10px;
+  /* Slight offset from edge */
   z-index: 2;
 }
 
 .bubble-purple {
   width: 95px;
   height: 95px;
-  /* Positioning */
   position: absolute;
-  bottom: 20px;
-  right: 0;
+  bottom: 0;
+  /* Align with red on bottom line */
+  right: 10px;
   z-index: 3;
 }
 
 @media (min-width: 640px) {
   .bubble-container {
     height: 320px;
+    /* Restore original desktop height */
     margin-bottom: 0;
     min-width: 300px;
   }
@@ -592,14 +592,12 @@ h3 {
     width: 240px;
     height: 240px;
     font-size: 0.9rem;
-    /* Restore Desktop Spacing */
     top: 10px;
   }
 
   .bubble-red {
     width: 180px;
     height: 180px;
-    /* Restore Desktop Spacing */
     bottom: 10px;
     left: 5%;
   }
@@ -607,7 +605,6 @@ h3 {
   .bubble-purple {
     width: 130px;
     height: 130px;
-    /* Restore Desktop Spacing */
     bottom: 30px;
     right: 10%;
   }
