@@ -226,9 +226,6 @@ export default function DailyDigest() {
             <AnalyticsHero
                 selectedCategory={selectedCategory}
                 onSelectCategory={setSelectedCategory}
-            <AnalyticsHero
-                selectedCategory={selectedCategory}
-                onSelectCategory={setSelectedCategory}
                 counts={categoryCounts}
                 outcomes={outcomes}
                 attention={attention}
@@ -238,7 +235,6 @@ export default function DailyDigest() {
                 onDateChange={(start, end) => setDateRange({ start, end })}
             />
 
-            {/* Error State */}
             {/* Error State */}
             {error && !useDemoData && (
                 <div style={{
