@@ -26,12 +26,25 @@ export default function DebugPage() {
             }
 
             setStatus(`3. Fetching Events for [${profileData.selectedRepos.join(', ')}]...`);
+
+            // Debug Loop
+            const debugResults = [];
+            for (const repoName of profileData.selectedRepos) {
+                if (!repoName.includes('/')) {
+                    debugResults.push(`⚠️ Invalid Repo Name ignored: ${repoName}`);
+                    continue;
+                }
+                const [owner, repo] = repoName.split('/');
+                debugResults.push(`Checking ${owner}/${repo}...`);
+            }
+
             const eventsRes = await fetch('/api/github/events', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     repos: profileData.selectedRepos,
-                    startDate: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString()
+                    // Use a massively long window to guarantee we find *something*
+                    startDate: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString()
                 })
             });
 
