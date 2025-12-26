@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 
@@ -41,11 +42,13 @@ export default function Sidebar() {
         }}>
             {/* Brand */}
             <div style={{ padding: '2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <div style={{ display: 'flex', gap: '3px' }}>
-                    <div style={{ width: 8, height: 8, background: '#000', borderRadius: '50%' }}></div>
-                    <div style={{ width: 8, height: 8, background: '#000', borderRadius: '50%', opacity: 0.5 }}></div>
-                    <div style={{ width: 8, height: 8, background: '#000', borderRadius: '50%', opacity: 0.25 }}></div>
-                </div>
+                <Image
+                    src="/logo.svg"
+                    alt="GitCalm Logo"
+                    width={28}
+                    height={28}
+                    style={{ objectFit: 'contain' }}
+                />
                 <span style={{ fontSize: '1.1rem', fontWeight: 800, letterSpacing: '-0.02em', color: '#0f172a' }}>GitCalm</span>
             </div>
 
