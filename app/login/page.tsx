@@ -4,7 +4,7 @@ import { signIn } from "@/auth";
 
 export default function Login() {
     return (
-    return (
+
         <div className="login-container">
             {/* Left Panel - "The Calm" (Visual Showcase) */}
             <div className="login-left-panel">
