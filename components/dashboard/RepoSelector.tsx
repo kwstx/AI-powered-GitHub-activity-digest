@@ -109,7 +109,7 @@ export default function RepoSelector({ selectedRepoIds, onToggle }: {
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
                         {group.repos.map(repo => {
-                            const repoIdStr = repo.id.toString();
+                            const repoIdStr = repo.full_name;
                             const isSelected = getIsSelected(repoIdStr);
                             return (
                                 <div
