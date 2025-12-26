@@ -33,34 +33,40 @@ const release = () => {
 };
 
 export async function generateLocalSummary(title: string, body: string): Promise<{ summary: string; impact: string }> {
-    await enqueue(); // Wait for free slot
+    // Timeout Safety: Vercel functions have strict limits. If AI takes > 3s, abort.
+    const timeoutPromise = new Promise<{ summary: string; impact: string }>((_, reject) => {
+        setTimeout(() => reject(new Error("AI Timeout")), 3000);
+    });
 
     try {
-        if (!summarizer) {
-            console.log('[AI] Loading local summarization model (Xenova/distilbart-cnn-6-6)...');
-            // 'summarization' task, using a quantized model for speed and low memory
-            summarizer = await pipeline('summarization', 'Xenova/distilbart-cnn-6-6');
-        }
+        await enqueue(); // Wait for free slot
 
-        const input = `Title: ${title}. Body: ${body || ''}`;
+        const aiPromise = (async () => {
+            if (!summarizer) {
+                console.log('[AI] Loading local summarization model (Xenova/distilbart-cnn-6-6)...');
+                summarizer = await pipeline('summarization', 'Xenova/distilbart-cnn-6-6');
+            }
 
-        // Truncate to avoid excessive token usage
-        const cleanInput = input.substring(0, 1024);
+            const input = `Title: ${title}. Body: ${body || ''}`;
+            const cleanInput = input.substring(0, 1024);
 
-        const output = await summarizer(cleanInput, {
-            max_new_tokens: 30, // Keep it punchy
-            min_length: 10,
-            do_sample: false
-        });
+            const output = await summarizer(cleanInput, {
+                max_new_tokens: 30,
+                min_length: 10,
+                do_sample: false
+            });
 
-        // Heuristic mapping for Impact, caller should prefer classifier
-        return {
-            summary: output[0]?.summary_text || "Automated summary unavailable.",
-            impact: "Update"
-        };
+            return {
+                summary: output[0]?.summary_text || "Automated summary unavailable.",
+                impact: "Update"
+            };
+        })();
+
+        // Race AI against Timeout
+        return await Promise.race([aiPromise, timeoutPromise]);
 
     } catch (error) {
-        console.error('[AI] Local summarization failed:', error);
+        console.warn('[AI] Summarization skipped (timeout or error):', error);
         return {
             summary: title,
             impact: "Update"
