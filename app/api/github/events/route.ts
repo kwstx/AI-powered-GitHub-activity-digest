@@ -83,7 +83,7 @@ export async function POST(request: Request) {
 
         // Process events server-side
         console.log('[API] Starting server-side processing...');
-        let processedEvents = [];
+        let processedEvents: any[] = []; // Explicitly typed to allow assignment
         try {
             processedEvents = await processGitHubDataServer(results);
             console.log('[API] Processing complete.');

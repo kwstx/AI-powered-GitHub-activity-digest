@@ -36,11 +36,11 @@ export function useGitHubEvents(repos: string[], dateRange?: { start: Date; end:
 
     const { data: responseData, error: swrError, isLoading, mutate } = useSWR(
         key,
-        ([url, body]) => eventsFetcher(url, { arg: body }),
+        ([url, body]: [string, any]) => eventsFetcher(url, { arg: body }),
         {
             revalidateOnFocus: true,
-            refreshInterval: 300000, // 5 minutes
-            dedupingInterval: 60000, // 1 minute
+            refreshInterval: 300000,
+            dedupingInterval: 60000,
         }
     );
 
