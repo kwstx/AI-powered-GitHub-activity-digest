@@ -46,6 +46,7 @@ export default function DailyDigest() {
     const [selectedStory, setSelectedStory] = useState<ProcessedEvent | null>(null);
     const [repos, setRepos] = useState<string[]>([]);
     const [reposLoading, setReposLoading] = useState(true);
+    const [hideBots, setHideBots] = useState(false); // New Filter State
 
     // Fetch user preference on mount
     useEffect(() => {
@@ -85,15 +86,33 @@ export default function DailyDigest() {
         return () => clearTimeout(timer);
     }, [loading]);
 
+    // Live Polling: Auto-refresh every 5 minutes
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            console.log('[DailyDigest] Auto-refreshing data...');
+            refetch();
+        }, 300000); // 5 minutes
+        return () => clearInterval(intervalId);
+    }, [refetch]);
+
     const [useDemoData, setUseDemoData] = useState(false);
 
     // Only use mock data if explicitly requested
     const rawEvents = useDemoData ? MOCK_STORIES : apiEvents;
 
-    // Filter events by date
+    // Filter events by date and "Hide Bots" logic
     const events = rawEvents.filter(e => {
         const eventDate = new Date(e.timestamp);
-        return eventDate >= dateRange.start && eventDate <= dateRange.end;
+        const inRange = eventDate >= dateRange.start && eventDate <= dateRange.end;
+
+        if (!inRange) return false;
+
+        if (hideBots) {
+            const txt = (e.title + e.summary).toLowerCase();
+            if (txt.includes('bot') || txt.includes('renovate') || txt.includes('dependabot')) return false;
+        }
+
+        return true;
     });
 
     // Filter events into categories for detailed display
@@ -312,6 +331,23 @@ export default function DailyDigest() {
                             }}>
                                 ⚙️ Manage Repos
                             </a>
+
+                            <button
+                                onClick={() => setHideBots(!hideBots)}
+                                style={{
+                                    background: hideBots ? '#dbeafe' : '#f8fafc',
+                                    border: `1px solid ${hideBots ? '#3b82f6' : '#e2e8f0'}`,
+                                    padding: '0.5rem 1rem',
+                                    borderRadius: '20px',
+                                    fontSize: '0.85rem',
+                                    fontWeight: 600,
+                                    color: hideBots ? '#1e40af' : '#64748b',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s'
+                                }}
+                            >
+                                {hideBots ? '🤖 Bots Hidden' : '🤖 Show Bots'}
+                            </button>
                         </div>
                     </div>
 
