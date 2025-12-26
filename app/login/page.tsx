@@ -4,22 +4,10 @@ import { signIn } from "@/auth";
 
 export default function Login() {
     return (
-        <div style={{
-            minHeight: '100vh',
-            display: 'flex',
-            fontFamily: 'sans-serif',
-            background: '#fff'
-        }}>
+    return (
+        <div className="login-container">
             {/* Left Panel - "The Calm" (Visual Showcase) */}
-            <div style={{
-                width: '50%',
-                background: '#f8fafc', // Very subtle slate/gray
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden'
-            }}>
+            <div className="login-left-panel">
                 {/* Decorative Gradients */}
                 <div style={{
                     position: 'absolute',
@@ -87,15 +75,7 @@ export default function Login() {
             </div>
 
             {/* Right Panel - "The Interaction" */}
-            <div style={{
-                width: '50%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '4rem',
-                position: 'relative'
-            }}>
+            <div className="login-right-panel">
                 <div style={{ maxWidth: '380px', width: '100%' }}>
 
                     <Link href="/" style={{
