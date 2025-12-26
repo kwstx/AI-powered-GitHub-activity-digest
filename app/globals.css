@@ -491,3 +491,39 @@ h3 {
     box-shadow: 10px 0 20px -10px rgba(0, 0, 0, 0.1);
   }
 }
+
+/* Typography Utilities */
+.desktop-br {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .desktop-br {
+    display: inline;
+  }
+}
+
+.responsive-h2 {
+  font-size: 2rem !important;
+}
+
+@media (min-width: 768px) {
+  .responsive-h2 {
+    font-size: var(--font-h2) !important;
+  }
+}
+
+.transform-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  text-align: left;
+}
+
+@media (min-width: 640px) {
+  .transform-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+```

@@ -12,8 +12,8 @@ export default function Transform() {
                     marginBottom: '1.5rem',
                     lineHeight: 1.1,
                     color: 'hsl(var(--foreground))'
-                }}>
-                    Turn GitHub Noise <br />
+                }} className="responsive-h2">
+                    Turn GitHub Noise <br className="desktop-br" />
                     Into <span style={{ opacity: 0.5 }}>Daily Insights</span>
                 </h2>
                 <p style={{
@@ -28,12 +28,7 @@ export default function Transform() {
             </div>
 
             {/* Grid */}
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: '2rem',
-                textAlign: 'left'
-            }}>
+            <div className="transform-grid">
 
                 {/* Card 1: Supercharge */}
                 <div className="glass-card" style={{
@@ -238,13 +233,7 @@ export default function Transform() {
             </div>
 
             {/* Row 2: Bottom Cards */}
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: '2rem',
-                marginTop: '2rem',
-                textAlign: 'left'
-            }}>
+            <div className="transform-grid" style={{ marginTop: '2rem' }}>
 
                 {/* Card 4: Photo / Focus */}
                 <div className="glass-card" style={{

@@ -128,8 +128,8 @@ export default function Revolutionize() {
                     fontWeight: 800,
                     marginBottom: '1.5rem',
                     color: '#111'
-                }}>
-                    Reclaim Your <br />
+                }} className="responsive-h2">
+                    Reclaim Your <br className="desktop-br" />
                     Team's <span style={{
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -147,7 +147,7 @@ export default function Revolutionize() {
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
-                    </span> <br />
+                    </span> <br className="desktop-br" />
                     Focus
                 </h2>
 
@@ -158,7 +158,7 @@ export default function Revolutionize() {
                     color: '#666',
                     marginBottom: '3rem'
                 }}>
-                    Stop drowning in notifications. Get a clear, actionable summary of <br />
+                    Stop drowning in notifications. Get a clear, actionable summary of <br className="desktop-br" />
                     recent code activity, organized for your daily review.
                 </p>
 
