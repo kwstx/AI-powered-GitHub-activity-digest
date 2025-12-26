@@ -33,11 +33,13 @@ export async function processGitHubDataServer(rawData: any[]): Promise<Processed
                     aiResult = await interpretEvent(aiText);
 
                     // 2. Local AI Summarization (Hybrid Approach)
-                    // Only run for Merged PRs or if the classifier found something interesting (score > 0.8)
-                    // This prevents spamming the local LLM for every single item
+                    // TEMPORARILY DISABLED: The local model is too heavy for Vercel Free Tier (OOM/Timeout).
+                    // Reverting to purely heuristic/classifier logic for stability.
+                    /*
                     if (isMerged || aiResult.score > 0.8) {
                         summaryResult = await generateLocalSummary(pr.title, pr.body);
                     }
+                    */
 
                 } catch (e) {
                     console.error(`[Processor] AI Failed for PR ${pr.number}:`, e);
