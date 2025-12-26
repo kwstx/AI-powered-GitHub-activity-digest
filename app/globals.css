@@ -449,3 +449,45 @@ h3 {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* --- MOBILE & SIDEBAR UTILITIES --- */
+
+/* Mobile Header Visibility */
+.mobile-header {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .mobile-header {
+    display: flex !important;
+  }
+}
+
+/* Mobile Sidebar Close Button */
+.mobile-close {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-close {
+    display: block;
+  }
+}
+
+/* Sidebar Transition & State */
+.sidebar {
+  /* Default desktop state is static/handled by layout margin */
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    box-shadow: none;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: 10px 0 20px -10px rgba(0, 0, 0, 0.1);
+  }
+}
