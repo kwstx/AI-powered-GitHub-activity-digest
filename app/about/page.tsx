@@ -49,7 +49,7 @@ export default function AboutPage() {
                         It starts with a few GitHub emails. Then a Slack ping. Then a Jira ticket update. Before you know it, your morning blocked off for "Deep Work" is gone.
                     </p>
                     <p style={{ marginBottom: '2rem' }}>
-                        Modern development tools are incredible, but they're also <b>noisy</b>. They're designed to demand your attention immediately, regardless of whether it's actually urgent.
+                        Modern development tools are incredible, but they&apos;re also <b>noisy</b>. They&apos;re designed to demand your attention immediately, regardless of whether it&apos;s actually urgent.
                     </p>
                     <p style={{ marginBottom: '2rem' }}>
                         We built GitCalm to be the shield. It monitors your repositories and highlights high-priority items—filtering the noise so you see only what actually matters.
@@ -80,7 +80,7 @@ export default function AboutPage() {
                             </div>
                             <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1rem', color: '#1E293B' }}>Respect Focus</h3>
                             <p style={{ lineHeight: 1.6, color: '#64748B' }}>
-                                A tool should never interrupt a human unless it's critical. Asynchronous by default.
+                                A tool should never interrupt a human unless it&apos;s critical. Asynchronous by default.
                             </p>
                         </div>
 
@@ -95,7 +95,7 @@ export default function AboutPage() {
                             </div>
                             <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1rem', color: '#1E293B' }}>Privacy First</h3>
                             <p style={{ lineHeight: 1.6, color: '#64748B' }}>
-                                Your data is yours. We don't track your behavior, sell your metrics, or train models on your code.
+                                Your data is yours. We don&apos;t track your behavior, sell your metrics, or train models on your code.
                             </p>
                         </div>
 

@@ -16,15 +16,16 @@ jest.mock('@/lib/logger', () => ({
     error: jest.fn(),
 }));
 
+import { auth } from '@/auth';
+
 describe('Security: Integrations API', () => {
-    const { auth } = require('@/auth');
 
     beforeEach(() => {
         jest.clearAllMocks();
     });
 
     it('should reject unauthenticated requests (401)', async () => {
-        auth.mockResolvedValue(null); // No session
+        (auth as jest.Mock).mockResolvedValue(null); // No session
 
         const { req } = createMocks({
             method: 'POST',
@@ -39,7 +40,7 @@ describe('Security: Integrations API', () => {
     });
 
     it('should validate input using Zod (400 for bad schema)', async () => {
-        auth.mockResolvedValue({ user: { id: 'security-test-user' } }); // Mock session
+        (auth as jest.Mock).mockResolvedValue({ user: { id: 'security-test-user' } }); // Mock session
 
         const request = new Request('http://localhost/api/integrations', {
             method: 'POST',

@@ -71,7 +71,7 @@ export default function FeaturesPage() {
                                 <span style={{ color: '#2563EB' }}>✓</span> No spam, just updates
                             </li>
                             <li style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                <span style={{ color: '#2563EB' }}>✓</span> "Pull" model (Check when you want)
+                                <span style={{ color: '#2563EB' }}>✓</span> &quot;Pull&quot; model (Check when you want)
                             </li>
                         </ul>
                     </div>
@@ -191,7 +191,7 @@ export default function FeaturesPage() {
                         <div style={{ fontSize: '4rem', fontWeight: 900, opacity: 0.1, lineHeight: 1, marginBottom: '1rem' }}>03</div>
                         <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1.5rem', lineHeight: 1.2 }}>Activity Breakdown</h2>
                         <p style={{ fontSize: '1.125rem', opacity: 0.7, lineHeight: 1.7, marginBottom: '2rem' }}>
-                            Instantly see the balance of your team's activity. Understand the ratio of shipped features (Outcomes) vs blockers (Attention) at a glance.
+                            Instantly see the balance of your team&apos;s activity. Understand the ratio of shipped features (Outcomes) vs blockers (Attention) at a glance.
                         </p>
                         <ul style={{ listStyle: 'none', padding: 0, opacity: 0.8, lineHeight: 2 }}>
                             <li style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>

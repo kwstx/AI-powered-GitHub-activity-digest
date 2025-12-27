@@ -39,7 +39,7 @@ export default function HowItWorks() {
                 {/* Header */}
                 <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
                     <h1 style={{ fontSize: '2.5rem', fontWeight: 600, marginBottom: '1rem' }}>How It Works</h1>
-                    <p style={{ fontSize: '1.1rem', color: '#666' }}>From setup to everyday flow, we've made summarization effortless.</p>
+                    <p style={{ fontSize: '1.1rem', color: '#666' }}>From setup to everyday flow, we&apos;ve made summarization effortless.</p>
                 </div>
 
                 <div className="how-it-works-grid">

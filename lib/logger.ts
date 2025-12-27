@@ -8,9 +8,9 @@ type LogLevel = 'info' | 'warn' | 'error' | 'security';
 interface LogPayload {
     event: string;
     userId?: string;
-    details?: Record<string, any>;
+    details?: Record<string, unknown>;
     ip?: string;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 const logger = {

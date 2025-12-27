@@ -10,7 +10,7 @@ export interface GitHubEvent {
         login: string;
         avatar_url: string;
     };
-    payload: any;
+    payload: unknown;
 }
 
 export interface PullRequestEvent {

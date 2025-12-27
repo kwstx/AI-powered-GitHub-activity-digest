@@ -130,7 +130,7 @@ export default function Revolutionize() {
                     color: '#111'
                 }} className="responsive-h2">
                     Reclaim Your <br className="desktop-br" />
-                    Team's <span style={{
+                    Team&apos;s <span style={{
                         display: 'inline-flex',
                         alignItems: 'center',
                         justifyContent: 'center',

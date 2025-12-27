@@ -14,8 +14,12 @@ export default function StoryModal({ story, isOpen, onClose }: StoryModalProps) 
 
     useEffect(() => {
         if (isOpen) {
-            setIsVisible(true);
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            // Delay visibility state to allow mount then animate
+            const t = setTimeout(() => {
+                setIsVisible(true);
+                document.body.style.overflow = 'hidden';
+            }, 10);
+            return () => clearTimeout(t);
         } else {
             setIsVisible(false); // Start exit animation
             const timer = setTimeout(() => {

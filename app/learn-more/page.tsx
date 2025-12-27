@@ -42,7 +42,7 @@ export default function LearnMore() {
                             GitCalm acts as your intelligent filter. Instead of checking 50 browser tabs, you start your day with a single, prioritized digest. We surface the critical architectural discussions and blocked PRs, while quieting the routine noise.
                         </p>
                         <p style={{ fontSize: '1.1rem', lineHeight: 1.6, opacity: 0.8 }}>
-                            It's not just about saving time; it's about reclaiming your attention span. By batching updates and highlighting velocity blockers, distinct teams can align asynchronously and stay in the zone.
+                            It&apos;s not just about saving time; it&apos;s about reclaiming your attention span. By batching updates and highlighting velocity blockers, distinct teams can align asynchronously and stay in the zone.
                         </p>
                     </div>
 

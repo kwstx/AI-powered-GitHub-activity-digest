@@ -32,7 +32,7 @@ export default function Hero() {
 
                 {/* Subheadline */}
                 <p className="hero-subheadline">
-                    Stop drowning in notifications. View a concise, intelligent summary of your team's GitHub activity, ready for your daily review.
+                    Stop drowning in notifications. View a concise, intelligent summary of your team&apos;s GitHub activity, ready for your daily review.
                 </p>
 
                 {/* CTA */}
