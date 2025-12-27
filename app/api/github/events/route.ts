@@ -3,6 +3,13 @@ import { auth } from '@/auth';
 import { createGitHubClient, fetchRepoEvents, fetchPullRequests, fetchIssues, fetchWorkflowRuns, fetchLastFailure } from '@/lib/github/client';
 import { processGitHubDataServer } from '@/lib/server/processor';
 
+import { z } from 'zod';
+
+const EventsRequestSchema = z.object({
+    repos: z.array(z.string()),
+    startDate: z.string().optional()
+});
+
 export async function POST(request: Request) {
     try {
         const session = await auth();
@@ -16,14 +23,14 @@ export async function POST(request: Request) {
         }
 
         const body = await request.json();
-        const { repos, startDate } = body;
 
-        if (!repos || !Array.isArray(repos)) {
-            return NextResponse.json(
-                { error: 'Invalid request: repos array required' },
-                { status: 400 }
-            );
+        // Input Validation
+        const result = EventsRequestSchema.safeParse(body);
+        if (!result.success) {
+            return NextResponse.json({ error: 'Invalid input', details: result.error.format() }, { status: 400 });
         }
+
+        const { repos, startDate } = result.data;
 
         const octokit = createGitHubClient(session.accessToken as string);
 

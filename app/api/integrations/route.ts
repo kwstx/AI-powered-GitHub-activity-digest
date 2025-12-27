@@ -16,6 +16,14 @@ export async function GET() {
     }
 }
 
+import { z } from 'zod';
+
+const IntegrationSchema = z.object({
+    id: z.string().min(1),
+    connected: z.boolean(),
+    config: z.record(z.string(), z.any()).optional()
+});
+
 export async function POST(request: Request) {
     try {
         const session = await auth();
@@ -24,11 +32,14 @@ export async function POST(request: Request) {
         }
 
         const body = await request.json();
-        const { id, connected, config } = body;
 
-        if (!id) {
-            return NextResponse.json({ error: 'Missing integration ID' }, { status: 400 });
+        // Input Validation
+        const result = IntegrationSchema.safeParse(body);
+        if (!result.success) {
+            return NextResponse.json({ error: 'Invalid input', details: result.error.format() }, { status: 400 });
         }
+
+        const { id, connected, config } = result.data;
 
         const updated = await saveIntegration(id, { connected, config });
         return NextResponse.json({ data: updated });
