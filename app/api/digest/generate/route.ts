@@ -35,18 +35,18 @@ export async function POST(request: Request) {
         });
 
         const rawRepoData = await Promise.all(repoDataPromises);
+        console.log(`[Digest API] Fetched data for ${rawRepoData.length} repos`);
 
         // 2. Process to standardized format (SERVER Processor)
-        // Use the server processor we found earlier (`processGitHubDataServer`) 
-        // because it includes the keyword classification logic!
         const processedEvents = await processGitHubDataServer(rawRepoData);
+        console.log(`[Digest API] Processed ${processedEvents.length} total events`);
 
         // Filter by Date (Only "Today" or requested date range)
-        // For "Daily Digest", we usually want the last 24 hours
         const cutoff = new Date();
         cutoff.setHours(cutoff.getHours() - 24);
 
         const recentEvents = processedEvents.filter(e => new Date(e.timestamp) > cutoff);
+        console.log(`[Digest API] Recent users events (24h): ${recentEvents.length}`);
 
         // 3. Smart Analysis (Local Engine)
         const digest = await generateDigestWithAI(recentEvents, userContext || 'Developer');
