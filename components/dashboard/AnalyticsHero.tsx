@@ -270,7 +270,7 @@ export default function AnalyticsHero({
                 </div>
 
                 {/* Right: Stats List */}
-                <div style={{ flex: 1, minWidth: '280px', display: 'flex', flexDirection: 'column', gap: '1rem', justifyContent: 'center' }}>
+                <div className="stats-list-container" style={{ flex: 1, minWidth: '280px', display: 'flex', flexDirection: 'column', gap: '1rem', justifyContent: 'center' }}>
                     {/* Item 1: Outcome */}
                     <div
                         className="analytics-stat-card"

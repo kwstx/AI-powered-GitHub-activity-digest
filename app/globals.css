@@ -620,13 +620,36 @@ h3 {
 }
 
 /* Analytics Stat Cards Responsiveness */
+.stats-list-container {
+  padding-left: 0.5rem;
+  /* Move right slightly per request */
+}
+
 .analytics-stat-card {
-  padding: 0.6rem !important;
-  /* Smaller padding on mobile */
+  padding: 0.5rem 0.75rem !important;
+  /* Smaller padding: top/bottom 0.5, left/right 0.75 */
   transition: opacity 0.2s;
   cursor: pointer;
   border-radius: 12px;
   background: #F9FAFB;
+  font-size: 0.8rem;
+  /* Smaller global text size for card */
+}
+
+/* Force bubble container to hold its shape so flex wraps if needed */
+.bubble-container {
+  /* Ensure it reserves space for the bubbles (155px + padding) */
+  min-width: 170px !important;
+}
+
+@media (max-width: 640px) {
+
+  /* On specifically mobile, we allow the flex items to wrap naturally 
+       but we ensure the stats list doesn't get squashed. */
+  .stats-list-container {
+    min-width: 200px !important;
+    /* Allow shrinking from 280px */
+  }
 }
 
 /* How It Works Page Responsiveness */
