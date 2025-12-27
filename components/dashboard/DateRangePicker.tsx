@@ -40,6 +40,7 @@ export default function DateRangePicker({ startDate, endDate, onChange }: DateRa
     return (
         <div ref={containerRef} style={{ position: 'relative' }}>
             <button
+                className="date-range-trigger"
                 onClick={() => setIsOpen(!isOpen)}
                 style={{
                     background: isOpen ? '#e5e7eb' : '#F3F4F6',
