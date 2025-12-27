@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 // Force Rebuild: switched to gemini-2.0-flash
 import "./globals.css";
 import ShellWrapper from "@/components/ShellWrapper";
+import Providers from "@/components/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,9 +28,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-        <ShellWrapper>
-          {children}
-        </ShellWrapper>
+        <Providers>
+          <ShellWrapper>
+            {children}
+          </ShellWrapper>
+        </Providers>
       </body>
     </html>
   );
