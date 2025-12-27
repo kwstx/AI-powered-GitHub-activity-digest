@@ -4,15 +4,7 @@ import { useState, useEffect } from 'react';
 
 export default function IntegrationsPage() {
     // Shared styles matching Settings page exactly
-    const sectionStyle = {
-        background: 'rgba(255, 255, 255, 0.7)',
-        backdropFilter: 'blur(20px)',
-        borderRadius: '16px',
-        border: '1px solid rgba(255, 255, 255, 0.8)',
-        padding: '2rem',
-        marginBottom: '2rem',
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)'
-    };
+    // Shared styles matching Settings page exactly (Moved to global CSS .integrations-card-container)
 
     const cardStyle = {
         background: '#fff',
@@ -149,7 +141,7 @@ export default function IntegrationsPage() {
             </h1>
 
             {/* Main Content Container - Matches Settings Page Style */}
-            <div style={sectionStyle}>
+            <div className="integrations-card-container">
                 <p style={{ color: '#64748b', marginBottom: '2rem', maxWidth: '600px', lineHeight: 1.6 }}>
                     Connect GitCalm with your favorite tools to streamline your workflow.
                     Receive alerts, sync tickets, and share digests where your team works.
@@ -158,7 +150,7 @@ export default function IntegrationsPage() {
                 {loading ? (
                     <div style={{ padding: '2rem', color: '#64748b' }}>Loading settings...</div>
                 ) : (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '1.5rem' }}>
+                    <div className="integrations-grid">
                         {integrations.map((integration) => (
                             <div key={integration.id} style={cardStyle}>
                                 <div style={{ display: 'flex', alignItems: 'start', justifyContent: 'space-between' }}>
