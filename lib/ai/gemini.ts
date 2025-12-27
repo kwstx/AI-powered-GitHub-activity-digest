@@ -7,11 +7,11 @@ const apiKey = process.env.GEMINI_API_KEY ? process.env.GEMINI_API_KEY.replace(/
 console.log(`[Gemini Init] Key present: ${!!apiKey}, Length: ${apiKey?.length || 0}`);
 const genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null;
 
-// Rate Limiter: Simulates a "Token Bucket" for API calls
-// - Max 10 calls per minute (well below the 15 limit)
-// - Fills up slowly
+// Rate Limiter: STRICT Free Tier Safety
+// - Free Tier Limit: 15 RPM
+// - Our Limit: 5 RPM (Very conservative to avoid ANY billing/errors)
 const RATE_LIMIT_WINDOW = 60000; // 1 minute
-const MAX_REQUESTS = 10;
+const MAX_REQUESTS = 5;
 let requestCount = 0;
 let windowStart = Date.now();
 
