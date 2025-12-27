@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+// Force Rebuild: switched to gemini-2.0-flash
 import "./globals.css";
 import ShellWrapper from "@/components/ShellWrapper";
 
