@@ -12,23 +12,42 @@ export default async function DebugEnvPage() {
     if (apiKey) {
         const genAI = new GoogleGenerativeAI(apiKey);
 
-        // Test 1: Gemini 1.5 Flash
+        // Test 1: Gemini 1.5 Flash (SDK)
         try {
             const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
             const result = await model.generateContent("Say 'Flash OK'");
-            results.push({ model: "gemini-1.5-flash", status: "✅ Success", details: result.response.text() });
+            results.push({ model: "gemini-1.5-flash (SDK)", status: "✅ Success", details: result.response.text() });
         } catch (e: any) {
-            results.push({ model: "gemini-1.5-flash", status: "❌ Failed", details: e.message });
+            results.push({ model: "gemini-1.5-flash (SDK)", status: "❌ Failed", details: e.message });
         }
 
-        // Test 2: Gemini Pro
+        // Test 2: Gemini Pro (SDK)
         try {
             const model = genAI.getGenerativeModel({ model: "gemini-pro" });
             const result = await model.generateContent("Say 'Pro OK'");
-            results.push({ model: "gemini-pro", status: "✅ Success", details: result.response.text() });
+            results.push({ model: "gemini-pro (SDK)", status: "✅ Success", details: result.response.text() });
         } catch (e: any) {
-            results.push({ model: "gemini-pro", status: "❌ Failed", details: e.message });
+            results.push({ model: "gemini-pro (SDK)", status: "❌ Failed", details: e.message });
         }
+
+        // Test 3: Raw REST API (No SDK)
+        try {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: [{ parts: [{ text: "Say 'REST OK'" }] }] })
+            });
+            const data = await response.json();
+            if (response.ok) {
+                results.push({ model: "gemini-1.5-flash (Raw FETCH)", status: "✅ Success", details: JSON.stringify(data, null, 2) });
+            } else {
+                results.push({ model: "gemini-1.5-flash (Raw FETCH)", status: "❌ Failed (" + response.status + ")", details: JSON.stringify(data, null, 2) });
+            }
+        } catch (e: any) {
+            results.push({ model: "gemini-1.5-flash (Raw FETCH)", status: "❌ Network Error", details: e.message });
+        }
+
     } else {
         results.push({ model: "N/A", status: "Skipped", details: "No API Key found" });
     }
