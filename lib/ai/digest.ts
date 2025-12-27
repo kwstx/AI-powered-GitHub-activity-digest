@@ -15,7 +15,17 @@ export interface SmartDigest {
  */
 export async function generateDigestWithAI(events: ProcessedEvent[], role: string): Promise<SmartDigest> {
 
-    // 1. Try Cloud AI
+    // 1. Handle Empty Activity (Quiet Day)
+    if (events.length === 0) {
+        return {
+            summary: "No activity detected in the last 24 hours. Enjoy the calm! ☕",
+            blockingIssues: [],
+            quickWins: [],
+            suggestedActions: []
+        };
+    }
+
+    // 2. Try Cloud AI
     try {
         const cloudDigest = await generateDailyDigestAI(events, role);
         if (cloudDigest) {
