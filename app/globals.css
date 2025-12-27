@@ -612,6 +612,21 @@ h3 {
     bottom: 30px;
     right: 10%;
   }
+
+  /* Restore desktop padding for stat cards */
+  .analytics-stat-card {
+    padding: 1rem !important;
+  }
+}
+
+/* Analytics Stat Cards Responsiveness */
+.analytics-stat-card {
+  padding: 0.6rem !important;
+  /* Smaller padding on mobile */
+  transition: opacity 0.2s;
+  cursor: pointer;
+  border-radius: 12px;
+  background: #F9FAFB;
 }
 
 /* How It Works Page Responsiveness */
