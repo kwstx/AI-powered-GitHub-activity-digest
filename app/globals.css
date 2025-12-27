@@ -671,15 +671,15 @@ h3 {
   width: 100%;
   flex-direction: column;
   /* Stack buttons vertically on mobile */
-  align-items: stretch;
-  /* Full width buttons */
+  align-items: flex-end;
+  /* Align to right side */
 }
 
 .add-repo-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Center text/icon on mobile */
+  /* Center content */
   gap: 0.5rem;
   background: #0f172a;
   color: #fff;
@@ -689,8 +689,13 @@ h3 {
   font-weight: 600;
   text-decoration: none;
   transition: opacity 0.2s;
-  width: 100%;
-  /* Full width on mobile */
+  width: 210px;
+  /* Fixed width on mobile for consistency */
+}
+
+/* Ensure DateRangePicker matches the button width */
+.analytics-header-actions>div {
+  width: 210px !important;
 }
 
 @media (min-width: 640px) {
@@ -711,6 +716,14 @@ h3 {
     width: auto;
     /* Natural width on desktop */
   }
+
+  .analytics-header-actions>div {
+    width: auto !important;
+  }
+
+  width: auto;
+  /* Natural width on desktop */
+}
 }
 
 /* How It Works Page Responsiveness */
