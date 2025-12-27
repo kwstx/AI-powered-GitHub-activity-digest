@@ -107,7 +107,7 @@ export default function RepoSelector({ selectedRepoIds, onToggle }: {
                         <h3 style={{ fontSize: '1rem', fontWeight: 600, color: '#0f172a' }}>{group.owner}</h3>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '1rem' }}>
                         {group.repos.map(repo => {
                             const repoIdStr = repo.full_name;
                             const isSelected = getIsSelected(repoIdStr);

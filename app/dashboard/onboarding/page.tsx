@@ -72,7 +72,7 @@ export default function Onboarding() {
     };
 
     return (
-        <div style={{ maxWidth: '800px', margin: '0 auto', paddingTop: '4rem', paddingBottom: '4rem' }}>
+        <div className="onboarding-container">
             {/* Step Indicator */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '3rem' }}>
                 {[1, 2, 3, 4].map((s) => (
@@ -94,7 +94,7 @@ export default function Onboarding() {
                     <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '1rem', color: '#0f172a' }}>How do you work?</h1>
                     <p style={{ fontSize: '1.1rem', color: '#64748b', marginBottom: '2.5rem' }}>We'll tailor your daily digest based on your role.</p>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '3rem' }}>
+                    <div className="onboarding-role-grid">
                         {[
                             { value: 'ic', label: 'Individual Contributor', desc: 'Focus on my PRs, code reviews, and blocking issues.' },
                             { value: 'lead', label: 'Tech Lead', desc: 'Overview of team velocity, architecture, and blockers.' },
@@ -172,7 +172,7 @@ export default function Onboarding() {
                     <h1 style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '1rem', color: '#0f172a' }}>Digest Schedule</h1>
                     <p style={{ fontSize: '1.1rem', color: '#64748b', marginBottom: '2.5rem' }}>When would you like to receive your daily summary?</p>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+                    <div className="onboarding-schedule-grid">
                         {[
                             { value: 'morning', label: '🌞 Morning Briefing', time: '8:00 AM', desc: 'Start your day with a fresh update.' },
                             { value: 'evening', label: '🌙 Evening Wrap-up', time: '5:00 PM', desc: 'Recap what happened before you sign off.' },
