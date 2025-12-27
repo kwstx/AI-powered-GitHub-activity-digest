@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 
 export default function DailyBriefingPage() {
-    const { data: session } = useSession();
+    const sessionObj = useSession();
+    const session = sessionObj?.data;
     const [loading, setLoading] = useState(false);
     const [digest, setDigest] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
