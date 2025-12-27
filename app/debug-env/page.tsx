@@ -14,9 +14,9 @@ export default function DebugEnvPage() {
             </div>
 
             <p style={{ marginTop: '2rem', color: '#666' }}>
-                Note: If this says "Missing", go to Vercel > Settings > Environment Variables and add "GEMINI_API_KEY".
+                Note: If this says "Missing", go to Vercel &gt; Settings &gt; Environment Variables and add "GEMINI_API_KEY".
                 <br />
-                Then go to Deployments > Redeploy.
+                Then go to Deployments &gt; Redeploy.
             </p>
         </div>
     );
